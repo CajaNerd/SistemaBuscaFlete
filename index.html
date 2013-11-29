@@ -1,0 +1,495 @@
+<!-- version Web  1.1.1
+  Falta:
+    Mapa con vehiculos de carga disponibles
+    Registro de Choferes y empresas
+  -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Busca Flete</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Jqery -->
+		<script type="text/javascript" href="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- MAPS API KEY-->
+     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+   
+    <!-- Custom styles for this template -->
+    <link href="css/carousel.css" rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-41014526-1', 'buscaflete.cl');
+      ga('send', 'pageview');
+
+    </script>
+    
+        
+  
+    
+    <!--Tooltip -->
+     <script type="text/javascript" src="js/tooltip.js"></script>
+      <script type="text/javascript" src="js/popover.js"></script>
+    
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body onload="initialize()">
+  <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1&appId=485278568220423";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <div class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand pacifico" href="demo/index.html">Busca Flete</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Inicio</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/icono.svg" style="width: 16px;"> Clientes<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="app/cliente/index.html"><span class="glyphicon glyphicon-globe" ></span> Acceso Web</a></li>
+                   
+                      <li><a role="dialog" data-toggle="modal" href="#" data-target="#2" style="padding-left: 24px;"><span class="glyphicon glyphicon-new-window" ></span> Descargas</a><li>
+                      <li><a href="descargas/fletes.apk" style="padding-left: 42px;"><span class="glyphicon glyphicon-save" ></span> .apk <img src="img/android.png" style="width: 16px;"> </a></li>
+                      <li><a href="descargas/fletes.ipa" style="padding-left: 42px;"><span class="glyphicon glyphicon-save" ></span> .ipa <img src="img/ios.png" style="width: 16px;"> </a></li>
+                 
+                  </ul>
+                </li>
+                <li><a href="transportistas/index.html"><img src="img/favicon2.png"> Transportistas</a></li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+
+        <div class="item active">
+          <!--<img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">-->
+          <img src="img/2.jpg">
+          <div class="container">
+            <div class="carousel-caption">
+              <h2>¿Necesitas un camión para tu transporte de carga, mudanza o cargas menores?</h2>
+              <p>En buscaflete.cl puedes cotizar Gratis todas las veces que quieras con choferes cerca de ti</p>
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <!--<img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Second slide" alt="Second slide">-->
+          <img src="img/s5.png">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Acceso en todo lugar.</h1>
+              <p>Descarga nuestra app para iphone o android o utiliza nuestra página especial para celulares</p>
+              <p><a class="btn btn-large btn-primary" role="dialog" data-toggle="modal" href="#" data-target="#2" >Ver Versiones</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <!--<img src="data:image/png;base64," data-src="holder.js/100%x500/auto/#777:#7a7a7a/text:Third slide" alt="Third slide">-->
+          <img src="img/s1.JPG">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Camiones cerca de ti.</h1>
+              <p>Muchos transportistas están esperando atender tu solicitud, envía una o más fotos de tu carga a nuestro sistema y dinos donde te diriges, veras como el vehículo se acerca a donde sea que estés.</p>
+              <p><a class="btn btn-large btn-primary" role="dialog" data-toggle="modal" href="#" data-target="#3" href="#">Ver Más</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-lg-4">
+         <span class="glyphicon glyphicon-thumbs-up iconos" ></span>
+          <h2>Simple</h2>
+          <p>Registro Rápido con Facebook.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#simple">Ver más &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <span class="glyphicon glyphicon-time iconos"></span>
+          <h2>Rápido</h2>
+          <p>Recibes en segundos ofertas.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#facil">Ver más &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+        	<span class="glyphicon glyphicon-ok iconos"></span>
+          <h2>Fácil</h2>
+          <p>El chofer te ayuda a cargar y/o descargar tu flete.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#rapido">Ver más &raquo;</a></p>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">
+          	Arriendo de vehiculos de carga.
+          <span class="text-muted"> 
+          	Tú decides el mejor precio.
+          </span></h2>
+          <p class="lead">Toma el control sobre tus viajes revisando y calificando al conductor.</p>
+        </div>
+        <div class="col-md-5">
+          <!--Mapa -->
+          <div id="map-canvas" style="height: 400px; width: auto; margin-right: 5%; margin-left: 5%;" ></div>
+          <!--<img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" >-->
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <!--<img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image">-->
+          <video  width="100%" height="100%" controls>
+            <source src="teletrece/teletrece_taxis.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Vea nuestro Video. <span class="text-muted">Entenderá como funciona.</span></h2>
+          <p class="lead">Son solo 2 minutos, esperamos que no le quede ninguna duda de nuestro servicio.</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Seleccione un camión a su medida <span class="text-muted">Tenemos diferentes tamaños y modelos.</span></h2>
+          <p class="lead">Usted es el jefe, tendrá a disposición el vehículo y el chofer para trasladar lo que desea y donde sea.</p>
+        </div>
+        <div class="col-md-5">
+          <!--<img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto" alt="Generic placeholder image"> -->
+          <img src="img/camion.jpg" style="height: 100%; width: 100%;">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Volver al inicio</a></p>
+        <p>&copy; 2013 Busca Flete, Inc. &middot; <a role="dialog" data-toggle="modal" href="#" data-target="#privacidad">Privacidad</a> &middot; <a role="dialog" data-toggle="modal" href="#" data-target="#terminos">Términos</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="privacidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Polí­tica de Privacidad</h4>
+          </div>
+          <div class="modal-body">
+        <p></p>El uso de los servicios disponibles a través del Sitio, o mediante su teléfono móvil, implica su aceptación y consentimiento para que nosotros procesamos información personal, y su garantí­a de que todo contenido proveí­do por Usted es correcto.
+ <p>La Polí­tica de Privacidad de Busca Flete en relación al uso del Sitio y la Aplicación Móvil se encuentra en un documento separado en el Sitio bajo el tí­tulo “Polí­tica de Privacidad”.
+</p> <p>Por favor tenga en cuenta que la información personal que Usted transmita al Sitio y/o la Aplicación Móvil será utilizada de acuerdo a nuestra Polí­tica de Privacidad.
+</p> <p>Utilización de otras áreas interactivas (crí­ticas y comentarios)
+</p> <p>Se le aconseja notar que mediante el enví­o de contenido al Sitio y/o a la Aplicación Móvil mediante mensajes de texto, mail, postings en el Sitio o por cualquier medio, incluyendo crí­ticas y comentarios sobre vehículos  de carga y conductores de vehículos  de carga, preguntas, comentarios, sugerencias, ideas o similares contenidas en cualquier enví­o (todos ellos, conjuntamente, “Enví­os”), Usted otorga a Busca Flete un derecho no exclusivo, libre de regalí­as, perpetuo transferible, irrevocable y total para (a) usar, reproducir, modificar, adaptar, traducir, publicar, crear trabajos derivados de, y mostrar publicamente y realizar cualquier Enví­o en todo el mundo a través de cualquier medio existente o a crearse; y (b) usar el nombre que Usted enví­a en conexión con ese Enví­o. Usted acepta y declara conocer que Busca Flete puede, a su sola discreción, optar o no por atribuir sus comentarios o crí­ticas.
+</p> <p>Asimismo, Usted otorga a Busca Flete el derecho a llevar adelante acciones legales contra cualquier persona o entidad que viole sus derechos o los de Busca Flete en los Enví­os en virtud de un incumplimiento de este Contrato. Usted conoce y acepta que los Enví­os no son confidenciales, y que Usted no posee ningún derecho de propiedad sobre los mismos. Busca Flete no edita o controla los Mensajes de Usuarios mostrados (posteados) o distribuidos en el Sitio incluyendo, aquellos recibidos mediante mensajes de texto, salas de chat, boletines informativos o cualquier otro foro de comunicación, y no será bajo ningún concepto responsable u obligado por dichos Mensajes de Usuarios.
+</p> <p>El Sitio y/o la Aplicación Móvil pueden incluir foros de discusión, boletines, servicios de crí­ticas u otros fórums en los cuales Usted o terceros pueden mostrar (postear) crí­ticas sobre experiencias en vehículos  de carga u otro contenido, mensajes, materiales u otros elementos del Sitio (las “áreas Interactivas”). Si Busca Flete provee dichas áreas Interactivas, Usted será el único responsable por su uso, y las usará a su propio riesgo. Mediante el uso de las áreas Interactivas, Usted expresamente acepta no mostrar (postear), subir (upload), transmitir, distribuir, guardar, crear o de cualquier modo publicar mediante el Sitio lo siguiente:
+</p> <p>(i) cualquier mensaje, dato, texto, música, fotos, gráficos, códigos o cualquier otro material (“Contenido”) que sea falso, ilegal, engañoso, calumnioso, injurioso, difamatorio, obsceno, pornográfico, indecente, sugestivo, acosador, o que provoque acosamiento, amenazante, invasivo de la privacidad, abusivo, fraudulento u objetable de cualquier otro modo;
+</p> <p>(ii) Contenido que sea ofensivo a la comunidad online, tal como contenido que provoque racismo, discriminación por cualquier razón, odio, o daño fí­sico o moral de cualquier tipo hacia cualquier grupo o persona;
+</p> <p>(iii) Contenido que constituya, promocione, incite o provea instrucciones para una conducta ilegal, un delito penal, cree una contingencia civil, viole los derechos de cualquier persona en cualquier paí­s del mundo, o que de cualquier otra forma cree una contingencia o viole una ley municipal, local, provincial, nacional o internacional;
+</p> <p>(iv) Contenido que provea instrucciones para realizar actividades ilegales tales como hacer o comprar armas ilegales, violar la privacidad de las personas, o proveer o crear virus informáticos;
+</p> <p>(v) Contenido que viole una patente, marca, diseño industrial, secreto industrial o cualquier otro derecho de propiedad intelectual o industrial de cualquier persona. En particular, contenido que promueva una copia ilegal o no autorizada de los derechos intelectuales o industriales de cualquier otra persona, tales como proveer programas piratas de computación o links hacia los mismos, proveer información para evitar el funcionamiento de sistemas de protección anti ““ copias, o proveer música o links hacia música cuya transmisión no fue autorizada o licenciada;
+</p> <p>(vi) Contenido que produzca confusión en cuanto a la afiliación de Usted con una persona o entidad, incluyendo Busca Flete;
+</p> <p>(vii) Promociones no solicitadas, mailings masivos o spams, transmisión de correo no deseado, cadenas de correo, campaña polí­tica, propaganda o comerciales, rifas, etc;
+</p> <p>(viii) Contenido conteniendo actividad comercial y/o ventas sin nuestro previo consentimiento, tales como concursos, sorteos, trueques, o esquemas de inversión piramidal;
+</p> <p>(ix) Información privada de cualquier persona, incluyendo, sin limitación, apellido, domicilios, numeros de teléfono, dirección de mail y numero de tarjetas de crédito;
+</p> <p>(x) Que contenga páginas restringidas al público o con acceso limitado con claves, o páginas ocultas o imágenes (aquellas sin links desde o hacia una página libremente accesible);
+</p> <p>(xi) Virus, información corrupta o cualquier otro tipo de documentos o files destructivos;
+</p> <p>(xii) Contenido que no tenga relación con el tema del área Interactiva en la cual dicho contenido es mostrado (posteado);
+</p> <p>(xiii) Contenido o links a contenido que, a sola discreción de Busca Flete, (a) viola cualquiera de los acápites anteriores; (b) es cuestionable; (c) restringe o inhibe a cualquier persona para usar o disfrutar las áreas Interactivas o el Sitio; o (d) pueda exponer a Busca Flete o sus usuarios a un daño o contingencia de cualquier tipo.
+</p> <p>Nosotros no asumimos responsabilidad alguna por el Contenido mostrado (posteado), guardado o subido (uploaded) por Usted o por cualquier usuario, o por cualquier pérdida o daño que dicho contenido pueda provocar, ni es Busca Flete responsable por errores, difamaciones, calumnias, omisiones, falsedades, obscenidades, pornografí­a o palabras soeces que Usted pueda encontrar. Como un proveedor de servicios interactivos, Busca Flete no es responsable por las declaraciones, opiniones o Contenido enviado por los usuarios en los foros públicos, la página personal o cualquier otra área Interactiva.
+</p> <p>A pesar que Busca Flete no tiene obligación alguna de monitorear, editar o controlar de modo alguno el Contenido mostrado (posteado) o distribuido mediante cualquier área Interactiva, Busca Flete se reserva el derecho, y tendrá completa discrecionalidad para ejercer, a remover, controlar y/o editar sin notificación alguna cualquier Contenido mostrado (posteado) o guardado en el Sitio y/o la Aplicación Móvil en cualquier momento y por cualquier razón, y Usted es el único responsable de crear copias de respaldo o reemplazar cualquier Contenido que Usted muestre (postee) o guarde en el Sitio y/o la Aplicación Móvil a su costo.
+</p> <p>Si se determina que Usted posee derechos morales al Contenido (incluyendo derechos de atribución o integridad), Usted declara por el presente que: (a) no requiere que se utilice información personal que lo identifique en relación al Contenido, o cualquier trabajo derivado del mismo, o sus mejoras o actualizaciones; (b) no tiene objeciones a la publicación, uso, modificación, borrado y explotación del Contenido por Busca Flete, o sus licenciatarios y sucesores bajo cualquier tí­tulo; (c) renuncia a perpetuidad y acuerda no efectuar reclamo alguno en relación o afirmar cualquier derecho a derechos morales de autor en el Contenido; y (d) renuncia a toda acción que pudiera tener frente a Busca Flete, sus licenciatarios y sucesores bajo cualquier tí­tulo en virtud de dichos derechos morales.
+</p> <p>El uso de las áreas Interactivas o cualquier servicio brindado por el Sitio y/o la Aplicación Móvil en violación de mencionado en este apartado, constituye una violación a los Términos y Condiciones del Sitio y puede resultar, entre otros, en la rescisión o suspensión de sus derechos a usar las áreas Interactivas y/o el Sitio y/o la Aplicación Móvil. A fin de cooperar con requerimientos legales de autoridades gubernamentales, órdenes judiciales, o para proteger los sistemas de Busca Flete o sus usuarios, o para asegurar la integridad de la operación de los negocios y sistemas de Busca Flete, Busca Flete puede acceder y revelar cualquier información que considere apropiada o necesaria, incluyendo, sin limitarse a ello, la información del perfil del usuario (nombre, dirección de correo electrónico, etc), direcciones de IP, información respecto al tráfico de datos, historia del uso del Sitio y/o de la Aplicación Móvil, y Contenido mostrado (posteado), por el usuario. El derecho de Busca Flete a revelar cualquier información tenga prevalencia sobre cualquiera de los términos de la Polí­tica de Privacidad. Se deja constancia que Busca Flete, en relación con la información protegida por la Ley de Protección de Datos Personales, ejercerá sus derechos bajo el presente en cumplimiento de la misma y de sus regulaciones.
+</p>          
+    
+</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal fade" id="terminos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Términos y condiciones para el uso de Busca Flete.cl</h4>
+          </div>
+          <div class="modal-body">
+         
+        <h4>ACEPTACIÓN DE LAS CONDICIONES GENERALES DE CONTRATACIÓN</h4>
+ <p>Estas condiciones han sido actualizadas el 04 de Mayo de 2013.</p><p>Estas son las Condiciones Generales de Contratación que regulan la relación contractual por la que los usuarios de Internet acceden a los contenidos y servicios que Busca Flete y Asociados. (en adelante “Busca Flete”) pone a su disposición a través del sitio www.Busca Flete.cl, en adelante Busca Flete.com (el “Sitio”), y/o su aplicación para teléfonos inteligentes o smartphones (la Aplicación Móvil). El Sitio es operado por Busca Flete y Asociados., con sede legal en avenida el peral 06120, comuna de Puente Alto, ciudad Santiago de Chile.
+</p> <p>Busca Flete ha preparado el presente a fin de informar a los usuarios de los términos y condiciones en virtud de los cuales los servicios disponibles a través del Sitio y la Aplicación Móvil son prestados. Los servicios del Sitio, la Aplicación Móvil y los mensajes de texto y de notificación PUSH enviados por Busca Flete son prestados únicamente a fin de asistir a los usuarios a (i) obtener información sobre vehículos  de carga y conductores de vehículos  de carga; y (ii) conectar a los usuarios con los conductores de vehículos  de carga, a fin de que aquellos puedan contratar a estos, mediante el acceso a opiniones de terceros, y mediante el envío de comunicaciones entre usuarios y conductores de vehículos  de carga en base a su ubicación.
+</p><p>Se deja expresa constancia que: (a) las opiniones y graduaciones o puntajes de los conductores son meras estadí­sticas recibidas por información de terceros y que en ningún caso es la opinión de Busca Flete, sobre asuntos relativos a vehículos  de carga, y para ningún otro propósito; y (b) Busca Flete, en relación a la contratación de viajes, presta únicamente el servicio de conectar a los usuarios con las empresas correspondientes de Vehículos  de carga, y a través de ellas con los conductores, no pudiendo entenderse en ningún caso que: (a) Busca Flete provee el servicio de contratación de viajes; y/o (b) Busca Flete provee servicios de fletes. Los términos “Nosotros”, “Nuestra”, la “Sociedad”, y “Busca Flete”, se refieren en todo momento a Busca Flete y asociados. El término “Usted” se refiere al usuario visitando el Sitio y/o la Aplicación Móvil, utilizando los servicios del Sitio y/o la Aplicación Móvil y/o contribuyendo información al Sitio y/o a la Aplicación Móvil.
+</p><p>Los servicios se encuentran disponibles para los usuarios bajo la condición de que Usted acepta sin ninguna reserva todos y cada uno de los Términos y Condiciones y las notificaciones que se realicen en virtud de ellos (todos ellos, conjuntamente, considerados el “Contrato”). Usted acepta estar sujeto al Contrato mediante el acceso o el uso del Sitio y/o la Aplicación Móvil, bajo cualquier forma. Por lo tanto, Usted debe leer los términos del Contrato cuidadosamente. En caso que Usted considere que no puede aceptar todos los términos y condiciones aquí­ establecidos, le solicitamos se abstenga de utilizar el Sitio, la Aplicación Móvil y/o los servicios brindados por el mismo, dado que su uso podrá ser considerado no autorizado por Busca Flete.
+</p><p>Uso del Sitio y de la Aplicación Móvil.
+</p><p>Es condición que el uso del Sitio que Usted garantiza lo siguiente al momento de usarlo:
+</p><p>(i) Usted tiene o es mayor a 21 años de edad a la fecha de registro de una cuenta en el Sitio; o si Usted es o era menor a 21 años, habí­a obtenido el consentimiento de sus padres o de quienes tengan la patria potestad al momento de registrar una cuenta;
+</p><p>(ii) Usted posee la capacidad legal para suscribir y ejecutar el Contrato y para usar el Sitio de conformidad con todos los términos y condiciones aquí­ establecidos; y
+</p><p>(iii) Usted garantiza que toda la información por Usted provista al Sitio es precisa, actual, completa y veraz y que será Usted (y nadie más que Usted), quien use su cuenta, que nosotros supervisaremos, y que Usted será completamente responsable por el uso de su cuenta por cualquier otra persona diferente de Usted.
+</p><p>Información sobre Menores de Edad</p>
+<p>Nosotros no recabamos en forma intencional información sobre menores de edad.</p>
+<p>Derechos respecto al uso del Sitio y/o de la Aplicación Móvil</p>
+<p>Busca Flete se reserva el derecho, a su sola discreción, a denegar acceso al Sitio, la Aplicación Móvil y/o a los servicios que ofrecemos, en cualquier momento y por cualquier razón, incluyendo, pero sin limitarse a ello, en virtud de una violación a este Contrato.
+</p><p>La transmisión, reproducción, copia, publicación, o redistribución del contenido del Sitio, la Aplicación Móvil o una parte de ambas o algunas de ellas, bajo cualquier modo, se encuentra estrictamente prohibida sin el previo consentimiento escrito de Busca Flete. Para obtener dicho permiso, por favor contacte a la compañí­a en la siguiente dirección: contact@buscaflete.cl.
+</p><p>Nuestro objetivo es actualizar en forma regular el contenido y las funcionalidades del Sitio y la Aplicación Móvil y por lo tanto podemos cambiar ambos o alguno de ellos en cualquier momento. Cuando lo considere necesario, Busca Flete puede suspender el acceso al Sitio o a la Aplicación Móvil o cerrar una o ambas definitivamente. Debe tenerse en cuenta que el material disponible en el Sitio y/o la Aplicación Móvil puede estar desactualizado en cualquier momento y que no tenemos obligación alguna, excepto por lo dispuesto en la Ley de Protección de Datos Personales, y sus normas regulatorias, cuando sean aplicables, a actualizar dichos contenidos.
+</p><p>Actividades Prohibidas</p>
+<p>La información y contenido del Sitio y/o de la Aplicación Móvil (incluyendo, pero sin limitarse a ello, mensajes, información, datos, textos, música, sonidos, fotos, gráficos, videos, mapas, í­conos, software, códigos o cualquier otro material), así­ como la infraestructura utilizada para proveer dicho contenido e información, es propiedad de Busca Flete. Usted acepta no modificar, copiar, distribuir, transmitir, mostrar, reproducir, publicar, otorgar licencias, transferir, vender o revender ninguna información, software, productos o servicios obtenidos desde o a través del Sitio, o la Aplicación Móvil, o de mensajes de texto enviados por Busca Flete.
+</p><p>Asimismo, Usted acepta no:</p>
+<p>(i) utilizar este Sitio, la Aplicación Móvil o su contenido para cualquier propósito comercial;
+</p><p>(ii) acceder, monitorear o copiar cualquier contenido o información del Sitio y/o de la Aplicación Móvil utilizando un robot, “araña”, “scraper”, o cualquier otro medio automático o proceso manual para cualquier fin sin nuestro expreso permiso escrito;
+</p><p>(iii) violar las restricciones de cualquier encabezado excluyendo robots en el Sitio y/o la Aplicación Móvil o evitar cualquier otra medida utilizada para prevenir o limitar acceso al Sitio y/o la Aplicación Móvil;
+</p><p>(iv) realizar cualquier acción que imponga, o pueda imponer, conforme nuestra opinión discrecional, una carga irrazonable o desproporcionada en nuestra infraestructura;
+</p><p>(v) enlace directo a cualquier parte del Sitio por cualquier razón sin nuestro expreso consentimiento escrito;
+</p><p>(vi) “frame”, “mirror” o de cualquier otro modo incorporar una parte o todo el Sitio dentro de cualquier otro sitio sin nuestro previo expreso consentimiento; o
+</p><p>(vii) intentar modificar, traducir, adaptar, editar, desensamblar, descompilar o realizar ingenierí­a inversa cualquier programa de software utilizado por Busca Flete en relación con el Sitio, la Aplicación Móvil o los servicios prestados.</p>
+</p>          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+     <div class="modal fade" id="simple" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-hand-down"></span> Registro automatico con Facebook</h4>
+          </div>
+          <div class="modal-body">
+          
+            <img class="simpleImg img-rounded" src="img/pasos/simple.png"8>
+              
+         
+              <ul>
+                  <li><h5>1.Presiona el Boton de Usuario</h5></li>
+                  <li><h5>2.Presiona el Boton de "Facebook Login"</h5></li>
+                  <li><h5>3.Listo! El navegador te llevara directamente a la pagina de Facebook si es que no haz iniciado sesion aun, luego volveras automaticamente a la aplicación de Busca Flete</h5></li>
+              </ul>
+                  
+            <p><span class="glyphicon glyphicon-info-sign"></span>Busca Flete no almacena tu contraseña de Facebook, solo nos envia un token para identifcarte</p>
+
+          </div>
+          <div class="modal-footer">
+          <div class="fb-like" data-href="http://www.buscaflete.cl/index.html" data-width="The pixel width of the plugin" data-height="The pixel height of the plugin" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+     <div class="modal fade" id="facil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-transfer"></span> ¿Necesitas Ayuda?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Tú decides si necesitas ayuda, nuestros <b>Choferes</b> te pueden ayudar a cargar y/o descargar.</p>
+            <img src="img/ayudar.png" class="img-circle" style="width: 100%;">
+            <img src="img/departamento.png">
+            <a href="#" id="example" rel="popover" data-content="Para Departamentos debes detallar el piso y además especificar si existen asensores o escaleras" data-original-title="Atención"><span class="glyphicon glyphicon-info-sign"></span></a>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+     <div class="modal fade" id="rapido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-flash"></span> Comunicación Instantanea</h4>
+          </div>
+          <div class="modal-body">
+            <p>No pierdas el tiempo cotizando en un lugar y otro, tenemos muchos transportistas dispuestos a salir inmediatamente</p>
+            <img src=demo/rapidez.png>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="empresas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Empresas</h4>
+          </div>
+          <div class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">¿Deseas saber más? </h4>
+          </div>
+          <div class="modal-body">
+            <div class="fb-comments" data-href="http://www.buscaflete.cl" data-colorscheme="light" data-numposts="5" data-width="350"></div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-download-alt"></span>Todas las versiones</h4>
+          </div>
+          <div class="modal-body">
+            <div class="list-group">
+             <a href="app/cliente/index.html" class="list-group-item">
+                <h4 class="list-group-item-heading"><span class="glyphicon glyphicon-globe"></span> Acceso Web</h4>
+                <p class="list-group-item-text">
+                   <li><span class="glyphicon glyphicon-ok"></span> Soporte en la mayoria de los navegadores web</li> 
+                <li><span class="glyphicon glyphicon-resize-small"></span> Diseño adaptable para Moviles, Tablets´s y PC´s</li>
+                <li><span class="glyphicon glyphicon-usd"></span> 0 CLP</li>
+                <li><span class="glyphicon glyphicon-user"></span> Facebook Login</li>
+                <li><span class="glyphicon glyphicon-map-marker"></span> Permite la "Geolocalización"</li>
+                <li><span class="glyphicon glyphicon-certificate"></span> Versión: 2.1</li>
+                </p>
+                
+              </a> 
+              <div class="list-group">
+              <a href="descargas/fletes.apk" class="list-group-item">
+                <h4 class="list-group-item-heading"><img src="../img/android.png" style="width: 32px;"> Android .APK</h4>
+                <p class="list-group-item-text"> 
+                <li><span class="glyphicon glyphicon-phone"></span> Nombre: Fletes.apk</li>
+                <li><span class="glyphicon glyphicon-exclamation-sign"></span> Requiere Activar "Origenes Desconocidos"</li>
+                <li><span class="glyphicon glyphicon-usd"></span> 0 CLP</li>
+                <li><span class="glyphicon glyphicon-file"></span> Paquete: com.buscaflete.cliente</li>
+                <li><span class="glyphicon glyphicon-certificate"></span> Versión: 1.4</li>
+                
+                </p>
+              </a>
+              <a href="descargas/fletes.ipa" class="list-group-item">
+                <h4 class="list-group-item-heading"><img src="../img/ios.png" style="width: 32px;"> IOS .IPA</h4>
+                <p class="list-group-item-text"> 
+                <li><span class="glyphicon glyphicon-phone"></span> Nombre: Fletes.ipa (BETA)</li>
+                <li><span class="glyphicon glyphicon-exclamation-sign"></span> Solo Dispositivos Autorizados</li>
+                <li><span class="glyphicon glyphicon-usd"></span> 0 CLP</li>
+                <li><span class="glyphicon glyphicon-user"></span> Cupos limitados</li>
+                <li><span class="glyphicon glyphicon-envelope"></span> contacto@buscaflete.cl</li>
+                <li><span class="glyphicon glyphicon-certificate"></span> Versión: 1.2</li>
+                
+                </p>
+              </a>
+            </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="fb-like" data-href="http://www.buscaflete.cl/index.html" data-width="60" data-height="15" data-colorscheme="light" data-layout="button_count" data-action="recommend" data-show-faces="true" data-send="true"></div>
+            
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script src="js/maps.js"></script>
+    <script>
+         $(function ()  
+{ $("#example").popover();  
+});  
+
+    </script>
+   
+  </body>
+</html>

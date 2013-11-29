@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../img/favicon.png">
+
+    <title>Mi Busca Flete</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    
+    <style>
+        input {
+            height: 24px;
+            }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand pacifico" href="../index.html">Busca Flete</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Inicio</a></li>
+            <li><a role="dialog" data-toggle="modal" href="#" data-target="#nosotros" >Nosotros</a></li>
+            <li><a role="dialog" data-toggle="modal" href="#" data-target="#contacto">Contacto</a></li>
+            
+            <!--
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mi <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="usr/index.html"><span class="glyphicon glyphicon-globe"></span> Web app</a></li>
+                <li><a href="../android/BuscaFleteChofer.apk"><img src="../img/android.png" style="width: 16px;"> Android app</a></li>
+                <li><a href="usr/index.html"><img src="../img/ios.png" style="width: 16px;"> Ios app</a></li>
+              </ul>
+            </li>
+            -->
+          </ul>
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Acceso Choferes</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron camion">
+      <div class="container">
+        <p class="blanco">Unete a nuestra red de transportistas.</p>
+        <p><a class="btn btn-primary btn-lg" role="dialog" data-toggle="modal" href="#" data-target="#postular">Postular Gratis Aqui &raquo;</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-lg-4">
+          <h2><span class="glyphicon glyphicon-check"></span> Postula Gratis</h2>
+          <p>Procesaremos en menos de 48 horas tu solicitud, si toda tu documentación es correcta te enviaremos un email con toda la información que necesitas saber, además uno de nuestros agentes se comunicara directamente al número telefónico de tu móvil.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#postula">Ver Detalles &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2><span class="glyphicon glyphicon-home"></span> Tecnologia</h2>
+          <p>Controla tus viajes, obtén ingresos extras con toda independencia, nuestro canal de comunicación puede soportar miles de solicitudes de clientes de todas partes, así mismo tú ofreces el precio de tus servicios directamente con los demandantes desde tu Smartphone.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#empresas">Ver Procesos &raquo;</a></p>
+       </div>
+        <div class="col-lg-4">
+          <h2><span class="glyphicon glyphicon-credit-card"></span> Formas de pago</h2>
+          <p>Pagas solo lo que usas, ingresa al panel de facturación disponible solo para navegadores web y revisa en vivo el estado de tu facturación, puedes pagar las boletas emitidas cuando quieras dentro del periodo del mes.</p>
+          <p><a class="btn btn-default" role="dialog" data-toggle="modal" href="#" data-target="#pagos" >Ver Detalles &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Busca Flete 2013</p>
+      </footer>
+    </div> <!-- /container -->
+    
+     <div class="modal fade" id="postula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title"><span class="glyphicon glyphicon-search"></span> Pasos Para Postulación</h3>
+          </div>
+          <div class="modal-body">
+            <p><b>1.</b>Presiona en <a class="btn btn-primary btn-lg" role="dialog" data-toggle="modal" href="#" data-target="#postular">Postular Gratis Aqui</a></p>
+			<p><b>2.</b> Completa y Envia el Formulario Con toda la información Solicitada.</p>
+			<p><b>3.</b> Te debera llegar en unos minutos un correo con la información previa de tu futura cuenta</p>
+			<p><b>4.</b> Descarga e instala la aplicacion movil exclusiva para Choferes desde tu pagina de inicio.</p>
+			<p><b>5.</b> Si toda tu documentación es correcta nos comunicaremos contigo para felicitarte, tenemos un plazo minimo de 2 dias habiles para comprobar tus datos.</p>
+			<p><b>6.</b> ¡Listo! ya estas listo para recibir solicitudes</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+     <div class="modal fade" id="empresas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title"><span class="glyphicon glyphicon-ok"></span> Procesos Basicos de Usuarios en buscaflete.cl</h3>
+          </div>
+          <div class="modal-body">
+		  <h4><img src="../../img/icono.svg"> Cliente </h4>
+		  	<p>1. Registro Cliente</p>
+			<p>2. Inicio de Sesión Cliente </p>
+            <p>3. Cliente sube a lo menos una fotografia para que tu puedas identificar la carga mas adelante</p>
+			<p>4. Cliente ingresa el destino</p>
+			<p>5. Cliente Revisa el MAPA (Rutear)</p>
+			<p>6. Cliente Envia Solicitud</p>
+			<p>7. Cliente Acepta/Rechaza precio propuesto</p>
+			<p>8. Cliente Finaliza Solicitud</p>
+			<p>9. Cliente Califica Chofer </p>
+			
+		 <h4><img src="../../img/camion2.png" style=" width:40px; height:40px;"> Chofer </h4>
+		 	<p>1. Registro Chofer</p>
+			<p>2. Inicio de Sesión Chofer </p>
+            <p>3. Chofer recibe solicitud</p>
+			<p>4. Chofer envia precio dispuesto a Cliente</p>
+			<p>5. Chofer realiza el transporte </p>
+			<p>6. Chofer Califica Cliente</p>
+			
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+     <div class="modal fade" id="pagos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title">Pagos y Precios</h3>
+          </div>
+          <div class="modal-body">
+		  <h4><span class="glyphicon glyphicon-credit-card"></span><b> Formas De Pago</b></h4>
+		  <li>Desposito Bancario, Transferencia Electronica y Efectivo</li>
+		  
+		  <h4 style="padding-top: 15px;"><b> Costos por Solicitud</b></h4>
+    
+			<span class="glyphicon glyphicon-usd"></span><span class="glyphicon glyphicon-chevron-right"></span><b>Opción 1.</b> <p>Precio Fijo:  <b>$1.000 CLP</b> x Solicitud Aceptada</p>
+			<span class="glyphicon glyphicon-usd"></span><span class="glyphicon glyphicon-chevron-right"></span><b>Opción 2.</b> <p>Precio Variable: Comision del <b>5%</b> segun el precio aceptado.</p>
+          
+          <span class="glyphicon glyphicon-asterisk"></span><b>USUARIOS NUEVOS</b> <p>50% Desct. x 1 mes.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="nosotros" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title"><span class="glyphicon glyphicon-question-sign"></span> Acerca de Nosotros</h3>
+          </div>
+          <div class="modal-body">
+            <img src="../img/75x75.png" style="padding-bottom: 10px;">
+			<p><span class="glyphicon glyphicon-registration-mark"></span> <b>BuscaFlete.cl</b></p>
+            <p><span class="glyphicon glyphicon-screenshot"></span> <b>Misión:</b> Nuestra Misión es ser la solución mas moderna, rápida y simple entre las personas y empresas que necesiten transportar carga con transportistas de nuestra plataforma</p>
+          	<p><span class="glyphicon glyphicon-map-marker"></span> <b>Dirección: </b> Av.El Peral 6120, Puente Alto, Chile </p>
+			<p><span class="glyphicon glyphicon-earphone"></span> <b>Telefono:</b><tel> + 56 9 7821 0204 </tel><p>
+			<p><span class="glyphicon glyphicon-envelope"></span> <b>Email</b> <mail>contacto@buscaflete.cl</mail></p>
+			
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">(Esc) Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="contacto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title"><span class="glyphicon glyphicon-comment"></span> Formulario de Contacto</h3>
+          </div>
+          <div class="modal-body">
+           
+           	<form action="" id="contact-form" class="form-horizontal">
+						  <fieldset>
+						   
+						    <div class="control-group">
+						      <label class="control-label" for="name"><span class="glyphicon glyphicon-user"></span> Su Nombre</label>
+						      <div class="controls">
+						        <input type="text" class="form-control" name="name" id="name">
+						      </div>
+						    </div>
+						    <div class="control-group">
+						      <label class="control-label" for="email"><span class="glyphicon glyphicon-envelope"></span> Email</label>
+						      <div class="controls">
+						        <input type="text" class="form-control" name="email" id="email">
+						      </div>
+						    </div>
+						    <div class="control-group">
+						      <label class="control-label" for="subject"><span class="glyphicon glyphicon-font"></span> Asunto</label>
+						      <div class="controls">
+						        <input type="text" class="form-control" name="subject" id="subject">
+						      </div>
+						    </div>
+						    <div class="control-group">
+						      <label class="control-label" for="message"><span class="glyphicon glyphicon-pencil"></span> Su Mensaje</label>
+						      <div class="controls">
+						        <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+						      </div>
+						    </div>
+	             		<div class="form-actions">
+							<button type="submit" class="btn btn-primary btn-large">Enviar</button>
+							<button type="reset" class="btn">Limpiar Todo</button>
+						</div>
+									
+	        			
+						  </fieldset>
+						</form>
+			
+
+          </div>
+          <div class="modal-footer">
+		   
+            <button type="button" class="btn btn-default" data-dismiss="modal">(Esc) Cerrar Ventana</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <div class="modal fade" id="postular" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3 class="modal-title"><span class="glyphicon glyphicon-check"></span> Formulario de Postulación</h3>
+          </div>
+          <div class="modal-body">
+          <span class="glyphicon glyphicon-warning-sign"></span>
+          <b>El siguiente formulario, es el primer paso para pertenecer a nuestra red, por favor complete cuidadosamente todos los campos requeridos.</b>
+          <form role="form">
+           <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+            <div class="form-group">
+            <label for="exampleInputEmail1"><span class="glyphicon glyphicon-envelope"></span> Email ID</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="mi@correo.com">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+           <div class="form-group">
+            <label for="exampleInputPassword1"><span class="glyphicon glyphicon-eye-close"></span> Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password para su cuenta">
+          </div>
+        
+            </div>
+          </div><!-- /row -->
+          
+          
+          
+          
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+             <div class="form-group">
+            <label for="nombre"><span class="glyphicon glyphicon-user"></span> Nombre</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="ej:Patricio">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+            <div class="form-group">
+           <label for="apellido"><span class="glyphicon glyphicon-user"></span> Apellido</label>
+            <input type="text" class="form-control" name="apellido" id="apellido" placeholder="ej:Guzmán">
+          </div>
+        
+            </div>
+          </div><!-- /row -->
+          
+           
+          
+                <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+             <div class="form-group">
+             <label for="direccion"><span class="glyphicon glyphicon-home"></span> Dirección de mi domicilio</label>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="ej:El Peral 6120">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+            <div class="form-group">
+           <label for="telefono"><span class="glyphicon glyphicon-phone"></span> Telefono</label>
+          <div class="col-lg-12">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">+56</button>
+                  </span>
+                  <input type="text" class="form-control" name="telefono" id="telefono" placeholder="ej:951081679">
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+            <div class="row">
+             
+            </div><!-- /.row -->
+          </div>
+        
+            </div>
+          </div><!-- /row -->
+          
+            <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+             <div class="form-group">
+            <label for="comuna"><span class="glyphicon glyphicon-map-marker"></span> Comuna</label>
+            <input type="text" class="form-control" name="comuna" id="comuna" placeholder=" ej:Puente Alto">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+            <div class="form-group">
+           <label for="region"><span class="glyphicon glyphicon-map-marker"></span> Región</label>
+           <select class="form-control" id="region">
+              <option>Región Metropolitana</option>
+              <option>Arica y Parinacota</option>
+              <option>Tarapacá</option>
+              <option>Antofagasta</option>
+              <option>Atacama</option>
+               <option>Coquimbo	</option>
+                <option>Valparaíso</option>
+                 <option>O'Higgins</option>
+                  <option>Maule</option>
+                   <option>Biobío</option>
+                    <option>La Araucanía</option>
+                     <option>Los Ríos</option>
+                      <option>Los Lagos</option>
+                       <option>Aysén</option>
+                        <option>Magallanes</option>
+                        
+            </select>
+           
+          </div>
+        
+            </div>
+          </div><!-- /row -->
+       
+              
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+           <div class="form-group">
+          <label for="patente"><span class="glyphicon glyphicon-header"></span> Patente</label>
+            <input type="text" class="form-control" name="patente" id="patente" placeholder="ingrese su Patente ej:RR-3320">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+                <div class="form-group">
+                  <label for="capacidadMax"><span class="glyphicon glyphicon-th-large"></span> Capacidad de Carga Maxima</label>
+                    <select class="form-control" name="capacidadMax" id="capacidadMax">
+                      <option>menor a 1500 kg [Liviana]</option>
+                      <option>menor a 3000 kg [Media]</option>
+                      <option>mayor a 3000 kg [Alta]</option>
+                    </select>
+                  </div>
+        
+            </div>
+          </div><!-- /row -->
+          
+          <div class="row">
+            <div class="col-md-6">
+              <!-- Direccion de inicio -->
+            <div class="form-group">
+          <label for="marca"><span class="glyphicon glyphicon-registration-mark"></span> Marca</label>
+            <input type="text" class="form-control" name="marca" id="marca" placeholder="ej:Kia">
+          </div>
+            </div>
+             
+            <div class="col-md-6">
+              <!-- Numero de direccion -->
+            <div class="form-group">
+          <label for="modelo"><span class="glyphicon glyphicon-copyright-mark"></span> Modelo</label>
+            <input type="text" class="form-control" name="modelo" id="modelo" placeholder="ej:Frontier">
+          </div>
+        
+            </div>
+          </div><!-- /row -->
+         
+          
+          <div class="form-group">
+            <label for="exampleInputFile"><span class="glyphicon glyphicon-paperclip"></span> Fotocopia de Cedula de Conducir</label>
+            <input type="file" id="imgCedula">
+            <p class="help-block">(.zip, .jpg, .png, .pdf) adjuntar imagen por ambos lados.</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile"><span class="glyphicon glyphicon-paperclip"></span> Fotocopia de Padron</label>
+            <input type="file" id="imgPadron">
+            <p class="help-block">(.zip, .jpg, .png, .pdf) adjuntar imagen por ambos lados.</p>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile"><span class="glyphicon glyphicon-paperclip"></span> Fotocopia de Papel de antecedentes</label>
+            <input type="file" id="imgPadron">
+            <p class="help-block">(.zip, .jpg, .png, .pdf) adjuntar imagen por ambos lados.</p>
+          </div>
+        
+         
+          
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Acepto <a href="#" >Terminos</a> y <a href="#">Condiciones</a>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+<!-- Validate plugin -->
+		<script src="../assets/js/jquery.validate.js"></script>
+
+
+<!-- Scripts specific to this page -->
+		<script src="../script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,638 @@
+<!--
+	CLIENTE BUSCA FLETE
+	VERSION : 2.1.0
+	FECHA : 28/11/13
+-->
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+		<title>Cliente Busca Flete</title>
+		<!-- Jqery	
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>	-->
+		<!-- My css -->
+		<link href="css/css.css" rel="stylesheet" type="text/css">
+		<!--<script type="text/javascript" src="cordova.js"></script>-->
+		<script src="js/jquery-1.10.2.js"></script>
+
+		<!-- JQ Mobile CDN -->
+		<link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet" type="text/css">
+		<script src="js/jquery.mobile-1.3.2.js"></script>
+		<!-- libreria Socket.io-->
+		<script src="socket.io/socket.io.js"></script>
+		<!-- CSS RATING styles -->
+	    <link href="css/rateit.css" rel="stylesheet" type="text/css">
+	    <link href="css/bigstars.css" rel="stylesheet" type="text/css">
+		<!-- Swipe Panel CSS -->
+		<link href="css/swipe-panel.css" rel="stylesheet" type="text/css">
+		<!-- Bootstrap 3 CSS JS -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-progressbar-3.0.0-rc2.min.css" rel="stylesheet">
+		<script src="js/bootstrap.min.js"></script>	  
+		<script type="text/javascript" src="js/bootstrap-progressbar.js"></script>
+		<!-- JS RATING -->
+    	<script src="js/jquery.rateit.js" type="text/javascript"></script>
+		<!-- MAPS API KEY Y AUTO COMPELTE SERVICE
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>-->
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+		<!-- FAVICON -->
+		<link rel="shortcut icon" href="img/favicon.png" />
+		<!-- Read More
+		<script type="text/javascript" src="js/readMore.js"></script>-->
+		<!-- Icon -->
+		<meta name="og:image" content="img/75x75.png"/>
+		<!--JS MAPS-->
+		<script type="text/javascript" src="js/maps.js"></script>
+		<!-- JS Fotos -->
+		<script type="text/javascript" src="js/photosBase64.js"></script>
+		<!-- JS Session-->
+		<script type="text/javascript" src="js/login.js"></script>
+        <!-- JS Buscar Flete-->
+		<script type="text/javascript" src="js/buscarFlete.js"></script>
+		<!-- Google Analytics -->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-41014526-1', 'buscaflete.cl');
+		  ga('send', 'pageview');
+		</script>
+
+	</head>
+	<body style="padding-left: 0px; padding-right: 0px;">
+		<!-- Inicio Scripts Facebook Login -->
+		<div id="fb-root"></div>
+
+		<!-- Script Facebook Login -->
+		<script type="text/javascript">
+			window.fbAsyncInit = function() {
+	            FB.init({
+	              appId      : '485278568220423', // App ID
+	              channelUrl : 'http://www.buscaflete.cl/facebook/channel.html', // Channel File
+	              status     : true, // check login status
+	              cookie     : true, // enable cookies to allow the server to access the session
+	              xfbml      : true  // parse XFBML
+	            });
+	              
+	            FB.Event.subscribe('auth.authResponseChange', function(response) 
+	            {
+	             if (response.status === 'connected') 
+	            {
+	                console.log('Conectado a Facebook');
+	                //document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
+	                //SUCCESS
+	                
+	            }	 
+	            else if (response.status === 'not_authorized') 
+	            {
+	                console.log('Fallo al conectar a Facebook');
+	               // document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
+	        
+	                //FAILED
+	            } else 
+	            {
+	                console.log('Desconectado');
+	              //  document.getElementById("message").innerHTML +=  "<br>Logged Out";
+	        
+	                //UNKNOWN ERROR
+	            }
+	            });	
+	            
+	            };
+	            //<!-- Ingreso del usuario -->
+	            function Login()
+	            {
+	            
+	                FB.login(function(response) {
+	                   if (response.authResponse) 
+	                   {
+	                        getUserInfo();
+	                    } else 
+	                    {
+	                     console.log('User cancelled login or did not fully authorize.');
+	                    }
+	                 },{scope: 'email,user_photos,user_videos'});
+	            }
+	         // <!-- Obtener información del usuario ingresado -->	
+	          function getUserInfo() {
+	                FB.api('/me', function(response) {
+						oculta('no-login');
+						var str="<b>Nombre</b> : "+response.name+"<br>";
+						str +="<img src='https://graph.facebook.com/" + response.id + "/picture'/><br>"; 
+						//str +="<b>Link: </b>"+response.link+"<br>";
+						//str +="<b>Username:</b> "+response.username+"<br>";
+						//str +="<b>id: </b>"+response.id+"<br>";
+						str +="<b>Email:</b> "+response.email+"<br>";
+						
+						str +="<input type='button' value='Salir' onclick='Logout();'/>";
+						document.getElementById("status").innerHTML=str;      
+	            	});
+	          }
+			  //<!-- Obtener Foto -->
+	            function getPhoto()
+	            {
+	              FB.api('/me/picture?type=normal', function(response) {
+	        
+	                  var str="<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
+	                  document.getElementById("status").innerHTML+=str;
+	                        
+	            });
+	            
+	            }
+				//<!-- Logout del usuario ingresado -->
+	            function Logout()
+	            {
+	                FB.logout(function(){document.location.reload();});
+	            }
+				<!-- Funcion para ocultar información-->
+				function oculta(id){
+					var elDiv = document.getElementById(id); //se define la variable "elDiv" igual a nuestro div
+					elDiv.style.display='none'; //damos un atributo display:none que oculta el div     
+	  			}
+	        	//<!-- Fin Función para ocultar información-->
+	          // Load the SDK asynchronously
+	          (function(d){
+	             var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+	             if (d.getElementById(id)) {return;}
+	             js = d.createElement('script'); js.id = id; js.async = true;
+	             js.src = "//connect.facebook.net/en_US/all.js";
+	             ref.parentNode.insertBefore(js, ref);
+	           }(document));       
+		</script><!-- Fin Scripts Facebook Login -->
+
+	<!--JQ PAGE -->
+	<div data-role="page" id="demo-page" data-theme="d" data-url="demo-page">
+		
+		<!-- JQ HEADER -->
+		<div data-role="header" data-theme="b" id="header">
+			<!-- Titulo Central -->
+			<h1 id="pacifico">Busca Flete</h1>
+			<!-- Panel Izquierdo -->
+			<a href="#left-panel" id="lefticon" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnOpciones" src="img/btnOpc.svg"></a>
+			<!-- Panel Derecho -->
+			<a href="#right-panel" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnMiCarga" src="img/camion2.png"></a>
+		</div><!-- /JQ HEADER -->
+
+		<!-- JQ CONTENT -->
+		<div data-role="content" id="contenido">
+			
+			<!-- Mapa ID-->
+			<div id="map_canvas"></div>
+
+			<!-- Pasos -->
+			<div class="panel-group" id="accordion">
+						<div class="panel panel-info">
+						    <div class="panel-heading">
+						      <h4 class="panel-title pacifico">
+						        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+						           Paso N°1 
+						          <span class="glyphicon glyphicon-eye-open"></span> ¿Qué Cargas?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseOne" class="panel-collapse collapse in">
+						    	<div class="panel-body">
+						    		<input type="file" accept="image/*" name="imagefile" id="imagefile" multiple>
+						    		<a href="#">Fotos subidas <span id="nroFotos" class="badge">0</span></a>
+						    		<label for="textarea"><span class="glyphicon glyphicon-pencil"></span> Cuentanos más sobre tu flete (opcional):</label>
+									<textarea data-toggle="tooltip" title="Esta información ayudará al fletero a determinar bien el precio de acuerdo al trabajo que realizará" name="textarea" id="textarea" placeholder="Aqui puedes detallar el peso, la cantidad,  el diametro y otras cosas que sean de utilidad para el Chofer"></textarea>
+						    	</div> <!-- /panel-body -->
+						    </div> <!-- /collapseOne -->
+						  </div>
+						  <div class="panel panel-info">
+						    <div class="panel-heading">
+						      <h4 class="panel-title pacifico">
+						        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+						        Paso N°2 
+						        <span class="glyphicon glyphicon-road"></span> ¿Adónde Vamos?
+						        </a>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo" class="panel-collapse collapse">
+						      <div class="panel-body">
+						      
+						        <!-- Resultado de Ruta-->
+	        						<div id="directions_panel"></div>
+	        					<!-- Grid divido -->
+	        					<div class="ui-grid-a">
+									<!-- Grid A -->
+									<div class="ui-block-a" style=" width:100%; ">
+										<!-- Direccion de inicio -->
+										<h4><span class="glyphicon glyphicon-home"></span> Origen</h4>
+										<input type="text" id="start" placeholder="Dirección de Origen" data-clear-btn="true" x-webkit-speech>	
+									</div><!-- /Grid A -->
+								</div><!-- /Grid divido -->
+								<h4><span class="glyphicon glyphicon-home"></span> Destino</h4>
+						        <input type="text" id="end" placeholder="Ej: Agustinas 1275, Santiago, Región Metropolitana, Chile" data-clear-btn="true" x-webkit-speech>
+	        					<a type="button" id="ruta" class="btn btn-default btn-sm send" onclick="verRuta()" ><span class="glyphicon glyphicon-road"></span> Verificar Ruta</a>
+						      </div>
+						    </div>
+						  </div>
+						  <div class="panel panel-info">
+						    <div class="panel-heading">
+						      <h4 class="panel-title pacifico">
+						        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+						       Paso N°3 
+						        <span class="glyphicon glyphicon-check"></span> ¿Te Ayudamos?
+						        </a>
+						      </h4>
+						    </div><!-- panel heading -->
+						    <div id="collapseThree" class="panel-collapse collapse">
+						      	<div class="panel-body">
+
+							      	<label for="slider-flip-m"><a href="#" id="cargar" rel="popover" data-content="El chofer ayuda a Cargar tus objetos al vehiculo."><span class="glyphicon glyphicon-info-sign"></span></a> <span class="glyphicon glyphicon-user"></span> Cargar </label><br>
+					       			<select name="slider-flip-m" id="slider-flip-C" data-role="slider" data-mini="true">
+					    				<option value="No">No</option>
+					    				<option value="Si" selected="">Si</option>
+									</select><br>
+									<label for="slider-flip-m"><a href="#" id="descargar" rel="popover" data-content="El chofer ayuda a Descargar tus objetos del vehiculo."><span class="glyphicon glyphicon-info-sign"></span></a> <span class="glyphicon glyphicon-user"></span> Descargar </label><br>
+									<select name="slider-flip-m" id="slider-flip-D" data-role="slider" data-mini="true">
+					    				<option value="No">No</option>
+					    				<option value="Si" selected="">Si</option>
+									</select>
+									
+									
+							  	</div><!-- / Panel body -->
+						    </div><!-- /collapseThree -->
+						   </div><!-- /panel panel-default -->
+						   	
+					</div><!-- panel-group acordion -->
+			<!-- /Pasos -->
+		</div><!-- /JQ CONTENT -->
+
+		<!-- JQ FOOTER -->
+		<div data-role="footer" data-theme="c" class="ui-bar">		
+					
+					<!-- Boton Buscar Fletero -->
+									<div id="searchTransport">
+										<a type="button" href="#buscandoflete" onclick="validarSolicitud()" data-rel="dialog" class="btn btn-default btn-block btn-lg" data-loading-text="Loading...">
+										<span class="glyphicon glyphicon-send"></span> Enviar mi solicitud</a>
+									</div>
+									<div id="finishTransport" style="display: none">
+										<a type="button" onclick="finFlete()" class="btn btn-success btn-block btn-lg" >
+										<span class=".glyphicon .glyphicon-remove-circle"></span>Finalizar flete</a>
+									</div>
+			
+		</div><!-- / JQ FOOTER -->
+
+        <!-- JQ Panel Izquierdo -->
+        <div data-role="panel" id="left-panel" data-theme="b">
+
+            <!-- Boton Cerrar Panel Izquierdo -->
+            <button type="button" data-rel="close" class="btn btn-default btn-xs" style="margin-left: 88%; margin-bottom: 5%;"><span class="glyphicon glyphicon-remove"></span></button>
+            <!-- PANEL DE DIV PARA LOGUEARSE-->
+            <div id="no-login">
+                <div align="center">
+                    <!-- Button trigger modal Login -->
+                    <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#modalLogin"><span class="glyphicon glyphicon-off" ></span>  Iniciar</button>
+                    <br>
+                    
+                   
+                </div>
+                <!-- Boton Login <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" class"btn btn-large">Login</a> -->
+            </div>
+
+            <!-- Facebook ON-->
+            <div id="infousuario" align="center">
+                <h2 class="pacifico">Bienvenid@</h2>
+                <h3><a href="#" class="navbar-link" id="status2"></a></h3>
+                <div id="status"></div><div id="message"></div><!--/Facebook ON-->
+                <br>
+                <p class="pacifico">Completa los siguientes 3 Pasos para luego enviar tu solicitud</p>
+                
+                
+                <h4 class="pacifico"><a href="#" id="paso1" rel="popover" data-placement="bottom" data-content="4 Fotos Maximo, claras y de buena calidad para que el chofer pueda darte un buen precio"><span class="glyphicon glyphicon-info-sign"></span> Paso 1 <span class="glyphicon glyphicon-picture" ></span></a></h4>
+                 
+                <h4 class="pacifico"><a href="#" id="paso2" rel="popover" data-placement="bottom" data-content="Revisa la Ruta generada, debe coincidir con las direcciones que haz ingresado"><span class="glyphicon glyphicon-info-sign"></span> Paso 2 <span class="glyphicon glyphicon-transfer" ></span></a></h4>
+
+                <h4 class="pacifico"><a href="#" id="paso3" rel="popover" data-placement="bottom" data-content="Si necesitas un par de manos extra para el traslado deja las opciones por defecto en este paso."><span class="glyphicon glyphicon-info-sign"></span> Paso 3 <span class="glyphicon glyphicon-check" ></span></a></h4>
+                
+               <button type="button" onclick="cerrarSesion()" class="btn btn-danger btn-xs btn-block"><span class="glyphicon glyphicon-off"></span>  Cerrar Sesión</button>
+                
+             
+                <!--<img src="img/user-profile.png">-->
+                
+            </div>
+        </div><!-- /JQ Panel Izquierdo-->
+
+		<!-- Panel Derecho -->
+		<div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="c">
+			<!-- Boton Cerrar Panel Derecho -->
+			<button type="button" data-rel="close" class="btn btn-default btn-xs" ><span class="glyphicon glyphicon-remove"></span></button>
+			<!-- Titulo -->
+			<h2 class="pacifico"><span class="glyphicon glyphicon-list"></span>Solicitudes.</h2>
+			<div id="noSendSolicitud"><h4>¡No tienes solicitudes enviadas!</h4></div>
+			<div id="mySolicitudes">
+				<div class="panel-group" id="solicitudes">
+				  <div id="panel0" class="panel panel-default" style="display: none">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#solicitudes" href="#collapse1">
+				          Solicitud #<span id="myId0">1</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse1" class="panel-collapse collapse in">
+				      <div class="panel-body">
+				      	<h4>Chofer <small id="miChofer0"></small></h4>
+				       	<h4>Origen <small id="miOrigen0"></small></h4>
+				       	<h4>Destino <small id="miDestino0"></small></h4>
+				       	<h4>Cargar <small id="miCargar0"></small></h4>
+				       	<h4>Descargar <small id="miDescargar0"></small></h4>
+				       	<h4>Precio <small id="miPrecio0"></small></h4>
+				       	<h4>Fecha <br><small id="miFecha0"></small></h4>
+				      </div>
+				    </div>
+				  </div>
+				  <div id="panel1" class="panel panel-default" style="display: none">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#solicitudes" href="#collapse2">
+				          Solicitud #<span id="myId1">1</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div  id="collapse2" class="panel-collapse collapse">
+				      <div class="panel-body">
+				        <h4>Chofer <small id="miChofer1"></small></h4>
+				       	<h4>Origen <small id="miOrigen1"></small></h4>
+				       	<h4>Destino <small id="miDestino1"></small></h4>
+				       	<h4>Cargar <small id="miCargar1"></small></h4>
+				       	<h4>Descargar <small id="miDescargar1"></small></h4>
+				       	<h4>Precio <small id="miPrecio1"></small></h4>
+				       	<h4>Fecha <br><small id="miFecha1"></small></h4>
+				      </div>
+				    </div>
+				  </div>
+				  <div id="panel2" class="panel panel-default" style="display: none">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#solicitudes" href="#collapse3">
+				          Solicitud #<span id="myId2">1</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse3" class="panel-collapse collapse">
+				      <div class="panel-body">
+				        <h4>Chofer <small id="miChofer2"></small></h4>
+				       	<h4>Origen <small id="miOrigen2"></small></h4>
+				       	<h4>Destino <small id="miDestino2"></small></h4>
+				       	<h4>Cargar <small id="miCargar2"></small></h4>
+				       	<h4>Descargar <small id="miDescargar2"></small></h4>
+				       	<h4>Precio <small id="miPrecio2"></small></h4>
+				       	<h4>Fecha <br><small id="miFecha2"></small></h4>
+				      </div>
+				    </div>
+				  </div>
+				  <div id="panel3" class="panel panel-default" style="display: none">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#solicitudes" href="#collapse4">
+				          Solicitud #<span id="myId3">1</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse4" class="panel-collapse collapse">
+				      <div class="panel-body">
+				        <h4>Chofer <small id="miChofer3"></small></h4>
+				       	<h4>Origen <small id="miOrigen3"></small></h4>
+				       	<h4>Destino <small id="miDestino3"></small></h4>
+				       	<h4>Cargar <small id="miCargar3"></small></h4>
+				       	<h4>Descargar <small id="miDescargar3"></small></h4>
+				       	<h4>Precio <small id="miPrecio3"></small></h4>
+				       	<h4>Fecha <br><small id="miFecha3"></small></h4>
+				      </div>
+				    </div>
+				  </div>
+				  <div id="panel4" class="panel panel-default" style="display: none">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#solicitudes" href="#collapse5">
+				          Solicitud #<span id="myId4">1</span>
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="collapse5" class="panel-collapse collapse">
+				      <div class="panel-body">
+				        <h4>Chofer <small id="miChofer4"></small></h4>
+				       	<h4>Origen <small id="miOrigen4"></small></h4>
+				       	<h4>Destino <small id="miDestino4"></small></h4>
+				       	<h4>Cargar <small id="miCargar4"></small></h4>
+				       	<h4>Descargar <small id="miDescargar4"></small></h4>
+				       	<h4>Precio <small id="miPrecio4"></small></h4>
+				       	<h4>Fecha <br><small id="miFecha4"></small></h4>
+				      </div>
+				    </div>
+				  </div>
+				</div>				
+			</div>
+		</div><!-- /panel Derecho -->
+
+	</div> <!--FIN QJ PAGE -->
+
+        <!-- Modal Log In-->
+<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            	<div class="modal-header">
+                   	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title pacifico"><span class="glyphicon glyphicon-off" ></span> Iniciar Sesión</h4>
+                </div>
+                <div class="modal-body">               
+                    <p class="text-danger" id="errorLogin"></p>
+                    <form class="form-horizontal" role="form">
+	                    <div class="form-group">
+	                        <label for="un" class="col-lg-3 control-label "><span class="glyphicon glyphicon-envelope" ></span> Usuario ID</label>
+	                        <div class="col-lg-8">
+	                            <input type="text" class="form-control" id="un" placeholder="mi@correo.com">
+	                        </div>
+	                    </div>
+	                        <div class="form-group">
+	                            <label for="pw" class="col-lg-3 control-label "><span class="glyphicon glyphicon-asterisk" ></span> Password</label>
+	                            <div class="col-lg-8">
+	                               	<input type="password" class="form-control" id="pw" placeholder="*******">
+	                            </div>
+	                        </div>
+                    </form>
+                    	<div class="row"><div class="col-lg-1"></div><div class="col-lg-5"><!-- Button trigger modal Login -->
+	                    <a class="pacifico" data-toggle="modal" data-target="#modalRegistro"><span class="glyphicon glyphicon-user"></span>  Nuevo Cliente</a></div></div>
+                    	<div class="row"><div class="col-lg-1"></div><div class="col-lg-5"><!-- Login With Facebook Button -->
+	                    <br>
+	                    <div>
+	                        <a class="pacifico" style="cursor:pointer; width:180px;" onClick="Login()"><img id="facebook-icon" src="img/F_icon.svg"> Iniciar con Facebook</a>
+	                    </div><!-- Fin login With Facebook Button --></div></div>
+                    	
+                </div>
+                <div class="modal-footer">
+                	
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick='connect()'>Ingresar</button>
+                </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+        <!-- Modal Registro-->
+        <div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title pacifico"><span class="glyphicon glyphicon-user"></span> Regístrate en nuestra aplicación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5><span class="glyphicon glyphicon-warning-sign"></span> Para continuar ingrese sus datos personales en el siguiente formulario y luego presiones en el boton registrarse, al registrarse significa que usted esta de acuerdo con los terminos y condiciones de nuestro servicio.</h5>
+                        <form class="form-horizontal" role="form" id="formRegistroCliente">
+                            <div class="form-group" id="formCorreo">
+                                <label for="correoRegistro" class="col-lg-3 control-label"><span class="glyphicon glyphicon-envelope"></span> Correo</label>
+                                <div class="col-lg-8">
+                                    <input type="email" class="form-control" id="correoRegistro" placeholder="Ingrese su email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombreRegistro" class="col-lg-3 control-label"><span class="glyphicon glyphicon-user"></span> Nombres</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" id="nombreRegistro" placeholder="Nombre y Apellido">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="passRegistro" class="col-lg-3 control-label"><span class="glyphicon glyphicon-asterisk"></span> Contraseña</label>
+                                <div class="col-lg-8">
+                                    <input type="password" class="form-control" id="passRegistro" placeholder="********">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefonoRegistro" class="col-lg-3 control-label"><span class="glyphicon glyphicon-earphone"></span> Teléfono</label>
+                                <div class="col-lg-8">
+					                <div class="input-group">
+					                  <span class="input-group-btn">
+					                    <button class="btn btn-default" type="button">+56</button>
+					                  </span>
+					                  <input type="text" class="form-control" id="telefonoRegistro" placeholder="ej:951081679">
+					              
+					                </div><!-- /input-group -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="registrarUsuario()">Registrarse</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!-- Modal Resultado Registro-->
+        <div class="modal fade" id="modalResultadoRegistro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title pacifico"><span class="glyphicon glyphicon-user"></span> Inicio de Sesión</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="mensajeRegistro"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+<!-- MODAL BUSCAR FLETE-->
+<div class="modal fade" id="modalSolicitud" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          	<button type="button" class="close" id="fatalClose" aria-hidden="true">&times;</button>          
+            <h4 class="modal-title" style="color: #3a87ad">Panel de comunicación</h4>
+      	  </div>
+          <div class="modal-body">
+          	<div id="buscando">
+	          	<center><h4 style="color: #d9edf7">Buscando transportista</h4>
+	        	<p><img src="images/loaderSolicitud.gif"></p></center>
+        	</div>
+        	<div id="datosSolicitud" class="panel panel-info" style="display: none">
+        		<div class="panel-heading">
+        			<h3 id="infoSolicitud" class="panel-title"><strong>Transportista Encontrado!</strong></h3>
+        		</div>
+  				<div class="panel-body">
+    				<strong>Nombre del Chofer: </strong><span id="flete"></span><br>
+    				<strong>Dirección del Chofer: </strong><span id="posicion"></span>
+    			</div>
+        		 <div class="panel-footer">
+  					<strong>Valor Flete     : </strong><span id="precio" ></span>
+  				</div><br>
+  				<div class="progress">
+               		<div class="progress-bar progress-bar-danger six-sec-ease-in-out" aria-valuetransitiongoal="100">
+                  	</div>                  
+                </div> 
+			</div>
+			<div id="gracias" style="display: none">
+				<center><h4 style="color: #d9edf7">Procesando solicitud</h4>
+	        	<p><img src="images/loaderSolicitud.gif"></p></center>
+			</div>
+			<div id="nofletes" style="display: none">
+				<center><h4 style="color: #d9edf7">Fletes no disponibles</h4>
+	        	<p><img src="images/no_fletes.png"></p></center>
+			</div>
+     	  </div>
+          <div class="modal-footer">
+            <div id="opciones" class="btn-group" style="display: none">
+				<input type="button" id="nuevo" value="Buscar" class="btn btn-primary">
+        		<input type="button" id="acepto" value="Aceptar Flete" class="btn btn-success">
+        		<input type="button" id="cerrar" value="Cerrar" class="btn btn-default" data-dismiss="modal">
+        	</div>
+        	<div id="opcionesDos" class="btn-group" style="display: none">
+				<input type="button" id="nuevoDos" value="Buscar"  class="btn btn-primary">
+        		<input type="button" id="cerrarDos" value="Cerrar" class="btn btn-default" data-dismiss="modal">
+        	</div>
+          </div> <!-- /.end footer -->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+      <!-- Modal -->
+    <div class="modal fade" id="modalFin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myTextFin">Haz finalizado!</h4>
+          </div>
+          <div class="modal-body">
+            <div class="well">
+              <div class="list-group">
+                <a class="list-group-item active">
+                   <span><span class="glyphicon glyphicon-thumbs-up"></span> Calificar Usuario</span>
+                </a>
+                <a class="list-group-item"><div id="rateit9" class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32"></div></a>
+                <a class="list-group-item"><textarea name="textarea" id="textareaRat" placeholder="Escribenos mas de tu experiencia. Opcional" rows="3" cols="30"></textarea></a>
+              </div>              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="btnFin" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button id="btnSend" type="button" class="btn btn-primary">Enviar Calificación</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+        <script>
+         	$(function (){ 
+         		$("#ruta").popover();  
+            	$("#cargar").popover();
+             	$("#descargar").popover();
+             	$("#paso1").popover();
+             	$("#paso2").popover();
+             	$("#paso3").popover();
+         	});  
+    	</script>
+	</body><!-- /Body -->
+</html>
