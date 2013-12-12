@@ -1,5 +1,5 @@
 //Conectamos al servidor node
-var cliSocket = io.connect('http://localhost:8000',{
+var cliSocket = io.connect('http://buscaflete.cl:8000',{
   'auto connect': false
 });
 
@@ -43,6 +43,7 @@ function ingresarSistema(){
 
   //Espera de una nueva solicitud
   cliSocket.on('nuevaSolicitud', function (data, callback) {
+    var lala=0;
     formNotify = $('#notificacion').html();
     //Nueva solicitud
     verSolicitud(data);  
@@ -57,19 +58,28 @@ function ingresarSistema(){
     });
     //Si rechaza devolvemos false
     $('#rechazar').unbind("click").click(function(){
-      callback({"respuesta": false});
+      //mostrar modal con opciones de porque rechazo
+      //MOTIVOS DEL RECHAZO
+            // 1 = no puede realizar solicitud
+            // 2 = Fotos mal tomadas
+            // 3 = comentario no se entiende
+            // 4 = Direcciones en mal formato
+      callback({"respuesta": false, "motivo": $("input[name*=radio-mini]:checked").val()});
+      $('#modalRechazo').modal('hide');
       cerrarSolicitud(1000);
+      //alert($("input[name*=radio-mini]:checked").val());
     });
      //Si acepta devolvemos true
-    $('#aceptar').unbind("click").click(function(){
+    new $('#aceptar').unbind("click").click(function(){
       if ($('#precio').val()) {
         var latlng = myLatLng();
+        $('#aceptar').attr('disabled',true);
+        $('#opcionSolicitud').attr('disabled',true);
         callback({"respuesta": true, "precio": $('#precio').val(), "posicion": $('#start').val(), "nombreChofer": nomChofer, "latLong": latlng});
         //Esperamos respuesta del cliente
         esperarRespuesta();
       }else{alert("Debes fijar un precio.")}
     });
-
     cliSocket.on('procesarDecision',function(respuesta){
       //recibimos respuesta del usuario
       if(respuesta['estado'] == true)
@@ -78,10 +88,29 @@ function ingresarSistema(){
         aceptaOferta();
         //Iniciamos traslado de datos
         execSolicitud(data, $('#precio').val());
+      };
+      if (respuesta['estado'] == "rebaja") {
+        $('#alertOferta').toggleClass('in');
+        //setTimeout(function(){$('#alertOferta').toggleClass('in');},3000);
+        $('#aceptar').attr('disabled',false);
+        $('#opcionSolicitud').attr('disabled',false);
+        //activamos boton de enviar precio, input del precio y mostramos un mensaje al chofer
+        new $('#aceptar').unbind("click").click(function(){
+          $('#aceptar').attr('disabled',true);
+          $('#opcionSolicitud').attr('disabled',true);
+          //$('#alertOferta').toggleClass('in');
+          cliSocket.emit("nuevaOferta",{"oferta":$('#precio').val()});                    
+        });
+        $('#rechazar').unbind("click").click(function(){
+          cliSocket.emit("nuevaOferta",{"oferta":false, "motivo": $("input[name*=radio-mini]:checked").val()});
+          $('#modalRechazo').modal('hide');
+          cerrarSolicitud(1000);       
+        });      
       }
       else rechazaOferta();
     });
   });
+  
   
   //Si usuario finaliza el flete
   cliSocket.on('finalizaFlete', function(data){
@@ -104,7 +133,6 @@ function ingresarSistema(){
       show: true
       });
       //Llenamos campos:
-      //$('#fotos').val("aca las fotos");
       verFotos(data.fotos);
       $('#origen').text(data.origen);
       $('#destino').text(data.destino);
@@ -126,14 +154,14 @@ function ingresarSistema(){
 
     function esperarRespuesta(){
       //$('.progress-bar').attr('aria-valuetransitiongoal',0);      
-      $('#aceptar').attr('disabled',true);
-      $('#rechazar').attr('disabled',true);
       $('#myAlert').toggleClass('alert-danger alert-success');
       $('#alerText').replaceWith('<div id="alerText"><strong>Esperando!</strong> respuesta del cliente <strong id="potje2"></strong>%.</div>');
       $('#barTime').remove();
+      $('#loading').toggleClass('right left');
       $('#loading').prepend('<div id="barTime" class="progress-bar progress-bar-success cli-sec-ease-in-out" aria-valuetransitiongoal="100"></div>');
       $('#loading').toggleClass('right left');
-      $('#barTime').progressbar({
+
+      $('.progress-bar').progressbar({
         update: function(current_percentage) {
                 $('#potje2').html(current_percentage);}
         });
@@ -144,7 +172,7 @@ function ingresarSistema(){
       $('#alerText').replaceWith('<div id="alerText"><strong>Aceptado!</strong> usuario acepto su oferta.</div>');
       $('#barTime').css('width','10%');
       cerrarSolicitud(4000);
-    }
+    };
 
     function rechazaOferta()
     {
@@ -152,7 +180,7 @@ function ingresarSistema(){
       $('#alerText').replaceWith('<div id="alerText"><strong>Lo sentimos!</strong> usuario rechazo su oferta.</div>');
       $('#barTime').css('width','15%');
       cerrarSolicitud(3000);
-    }
+    };
 
     function execSolicitud(data, valor){
       $('#cerrarSesion').css('display','none');
@@ -177,7 +205,7 @@ function ingresarSistema(){
       $("#progressTrans").css("display","block");
       $('#status').text("Ocupado");
       $("#status").css("color","orange");
-    }
+    };
 
   function finalizarTransaccion(nombre,myText){
     $('#modalFin').modal({
@@ -185,7 +213,6 @@ function ingresarSistema(){
       keyboard: false,
       show: true
     });
-    $('#btnFin').css('display', 'block');
     $('#myTextFin').text(nombre+" "+myText);
     $('#btnSend').unbind("click").click(function(){
       if ($('#rateit9').rateit('value')!=0) {
@@ -207,12 +234,13 @@ function ingresarSistema(){
         mostrarSolicitudes();
       }else {alert("Debes calificar al usuario.")}
     });
-  }
+  };
    function finalizarTransaccionUser(nombre,myText){
-    $('#btnFin').css('display', 'none');
+    $('#btnFin').attr('disabled',true);
     $('#myTextFin').text(nombre+" "+myText);
     $('#btnSend').unbind("click").click(function(){
       if ($('#rateit9').rateit('value')!=0) {
+          $('#btnFin').attr('disabled',false);
           enviarRating();          
           cliSocket.emit('estadoChofer', {idChofer: idChofer, estado: 1}, function(data){
             setTimeout(function(){
@@ -228,24 +256,24 @@ function ingresarSistema(){
           mostrarSolicitudes();
         }else{alert("Debes calificar al usuario.")}
     });
-  }
+  };
 
   //Funcion: emitir finalizacion del fletero al usuario
   function emitirFinalizacion(){
     cliSocket.emit("userEnd", {"id": idUsuario, "user": false, "nombre": nomChofer});
-  }
+  };
   function enviarRating(){
     cliSocket.emit('ratingUser', {"tabla": "ratusuario", "idChofer": idChofer, "idUsuario": idUsuario, "rating": $('#rateit9').rateit('value'), "comentario": $('#textareaRat').val()});
     setTimeout(function(){
       idUsuario = '';
     }, 2000);
-  }
+  };
 
   function verFotos(fotos){
     for (var i = 0; i < fotos.length; i++) {
-      $('#imagenes').append('<img src="' + fotos[i] + '"/>');
+      $('#imagenes').append('<img src="' + fotos[i] + '" class="img-thumbnail" />');
     };  
-  }
+  };
 
   function mostrarSolicitudes(){
     for (var i = 0; i < 5; i++) {
@@ -269,7 +297,7 @@ function ingresarSistema(){
           };
         }
       });   
-  }
+  };
 }
 
 function iniciarSesion(){
@@ -288,7 +316,7 @@ function iniciarSesion(){
       }
       $('#btnIni').button("reset");
   });
-}
+};
 
 function cerrarSesion(){
   //Modificamos al chofer como no disponible
@@ -312,4 +340,4 @@ function cerrarSesion(){
       $('#cerrarSesion').button("reset");
     }
   });
-}
+};

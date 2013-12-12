@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jQuery Mobile</title>
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet">
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery.mobile-1.3.2.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page" data-theme="b" id="pagina1">
+        <div data-role="header" data-theme="e">
+            <h1>Página Interna</h1>
+        </div>
+        <div data-role="content">
+         <button type="button" data-icon="gear" data-theme="b" data-iconpos="right" data-mini="true" data-inline="true" id="add">Agregar Nueva Carga</button>
+            <button type="button" data-icon="plus" data-theme="b" data-iconpos="right" data-mini="true" data-inline="true" id="expand">Expandir</button>
+            <button type="button" data-icon="minus" data-theme="b" data-iconpos="right" data-mini="true" data-inline="true" id="collapse">Contraer</button>
+            <div data-role="collapsible-set" data-content-theme="d" id="set">
+                <div data-role="collapsible" id="set1" data-collapsed="true">
+                    <h3>Carga 1</h3>
+                    <input type="file" accept="image/*" name="imagefile" id="imagefile" multiple>
+                    <a href="#">Fotos subidas <span id="nroFotos" class="badge">0</span></a>
+                    <label for="textarea"><span class="glyphicon glyphicon-pencil"></span> Cuentanos más sobre tu flete (opcional):</label>
+                    <textarea name="textarea" id="textarea" placeholder="Aqui puedes detallar el peso, la cantidad,  el diametro y otras cosas que sean de utilidad para el Chofer"></textarea>
+                </div>
+            </div>
+        </div>
+           
+        <div data-role="footer" data-theme="b"> 
+            <h4>(C) 2015 Marty McFly</h4>     
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    $(document).on("pageinit", function() {
+    var nextId = 1;
+    $("#add").click(function() {
+        nextId++;
+        var content = "<div data-role='collapsible' id='set" + nextId + "'><h3>Carga " + nextId + "</h3><input type="file" accept='image/*' name="imagefile" id="imagefile" multiple>
+                    <a href="#">Fotos subidas <span id="nroFotos" class="badge">0</span></a>
+                    <label for="textarea"><span class="glyphicon glyphicon-pencil"></span> Cuentanos más sobre tu flete (opcional):</label>
+                    <textarea name="textarea" id="textarea" placeholder="Aqui puedes detallar el peso, la cantidad,  el diametro y otras cosas que sean de utilidad para el Chofer"></textarea></div>";
+        $("#set").append( content ).collapsibleset('refresh');
+    });
+    $("#expand").click(function() {
+        $("#set").children(":last").trigger( "expand" );
+    });
+    $("#collapse").click(function() {
+        $("#set").children(":last").trigger( "collapse" );
+    });
+});
+    </script>
+
+</body>
+</html>

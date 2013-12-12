@@ -1,144 +1,130 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="img/favicon.png">
-    <!-- FAVICON -->
+    <meta name="format-detection" content="telephone=yes" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <link rel="shortcut icon" href="/../../img/favicon.png" />
-    <title>Chofer Busca Flete</title>
 
-    <!-- MY CSS -->
+    <title>Chofer APP Busca Flete</title>
+
+    <!-- CSS -->
     <link href="css/css.css" rel="stylesheet" type="text/css">
-    <!-- CSS RATING styles -->
     <link href="css/rateit.css" rel="stylesheet" type="text/css">
     <link href="css/bigstars.css" rel="stylesheet" type="text/css">
-
-    <!--<script type="text/javascript" src="cordova.js"></script>-->
-    
-    <!-- Jqery
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-    <script type="text/javascript" src="cordova.js"></script>-->
-    <script src="js/jquery-1.10.2.js"></script>
-    <!-- libreria Socket.io-->
-    <script src="socket.io/socket.io.js"></script>
-    <!-- JS RATING -->
-    <script src="js/jquery.rateit.js" type="text/javascript"></script>
-    <!-- JQUERY MOBILE core -->
-    <link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery.mobile-1.3.2.js"></script>
-    <!-- Bootstrap core CSS -->
+    <!--<link href="css/jquery.mobile-1.3.2.css" rel="stylesheet" type="text/css">Local-->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-progressbar-3.0.0-rc2.min.css" rel="stylesheet">
-    <!-- Bootstrap core JavaScript -->
+    
+
+
+    <!-- Javascript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+    <!--<script src="js/jquery-1.10.2.js"></script>-->
+    
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script type="text/javascript">
+		$(document).bind("mobileinit", function () {
+    	$.mobile.ajaxEnabled = false;
+		});
+	</script>
+    <!--<script src="js/jquery.mobile-1.3.2.min.js"></script>Local-->
+    <!--<script type="text/javascript" src="cordova.js"></script>Local-->
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/jquery.rateit.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-progressbar.js"></script>
-    <!-- MAPS API KEY  -->
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <!-- notifyBuscaFLETE -->
     <script type="text/javascript" src="js/notifyBuscaFlete.js"></script>
-    <!--MAPS -->
     <script type="text/javascript" src="js/maps.js"></script>
-    <!-- Google Analytics -->
     <script>
-      /*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
       ga('create', 'UA-41014526-1', 'buscaflete.cl');
-      ga('send', 'pageview');*/
+      ga('send', 'pageview');
 
     </script>
-  </head>
-<!-- NAVBAR
-================================================== -->
-  <body>
-     <!--JQ PAGE -->
-  <div data-role="page" id="demo-page" data-theme="d" data-url="demo-page">
-  <!-- JQ HEADER -->
-    <div data-role="header" data-theme="b" id="header">
-      <!-- Titulo Central -->
-      <h1 id="pacifico">Busca Flete</h1>
-      <!-- Panel Izquierdo -->
-      <a href="#left-panel" id="lefticon" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnOpciones" src="img/btnOpc.svg"></a>
-      <!-- Panel Derecho -->
-      <a href="#right-panel" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnMiCarga" src="img/icono_1.svg"></a>
-    </div><!-- /JQ HEADER -->
+    </head>
+<body>
+  	<!--JQM PAGE -->
+  	<div data-role="page" id="demo-page" data-theme="d">
 
-    <!-- JQ CONTENT -->
-    <div data-role="content" id="contenido">
+  		<!-- JQM HEADER -->
+    	<div data-role="header" data-theme="b" id="header">
+      		<!-- Titulo Central -->
+      		<h1 id="pacifico">Busca Flete</h1>
+		    <!-- Panel Izquierdo -->
+		    <a href="#left-panel" id="lefticon" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnOpciones" src="img/btnOpc.svg"></a>
+		    <!-- Panel Derecho -->
+		    <a href="#right-panel" data-shadow="false" data-iconshadow="false" class="ui-icon-nodisc"><img id="btnMiCarga" src="img/icono_1.svg"></a>
+    	</div><!-- /JQM HEADER -->
+
+	    <!-- JQ CONTENT -->
+	    <div data-role="content" id="contenido">
+	        <div  id="progressTrans" class="row" style="display: none">
+	        	<div class="col-xs-12">
+	              <div class="progress progress-striped active">
+	              <div  id="barWarning" class="progress-bar progress-bar-warning"  role="progressbar" style="width:100%"></div>
+	            </div>
+	        </div>
+	    </div>
+		<div id="map_canvas"></div>
+		<div data-role="footer"></div>
+	</div>
+
       
-     <div class="row" style="margin-bottom: 5px">
-     
-             
-            
-             <div class="col-xs-12">
-              <!-- Direccion de inicio data-loading-text="loading..." -->
-                <input id="start" type="text" class="form-control input-md" placeholder="Dirección Automatica" disabled>
-            </div>
-         </div>
-          
-          <div  id="progressTrans" class="row" style="display: none">
-            <div class="col-xs-12">
-              <div class="progress progress-striped active">
-                <div  id="barWarning" class="progress-bar progress-bar-warning"  role="progressbar" style="width:100%"></div>
-              </div>
-            </div>
-          </div>
-          
-          <div id="map_canvas"></div>
-        
-       </div>
-         
-          
     <!-- JQ Panel Izquierdo -->
-      <div data-role="panel" id="left-panel" data-theme="b">
-      <div class="row">
-            <div class="col-xs-4"><h4>
-              <h4 class="pacifico">Transportista</h4>           
-            </div>
-            <h4 class="pacifico"><strong id="status" style="color: green">Conectado</strong></h4>
-            <div class="col-xs-10"><h4>
-              <h4><strong id="miNombre"></strong></h4>              
-            </div>
-        </div>
+    <div data-role="panel" id="left-panel" data-theme="b">
+        <div class="row" style="padding-left: 55px"><!--<img src="img/user1.png">--></div>
+
+        <div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span> Transportista</h3>
+		  </div>
+		  <div class="panel-body">
+		    <strong style="padding-left: 8%;" id="miNombre"></strong>
+		  </div>
+		</div>
+
+        <div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><span class="glyphicon glyphicon-star"></span> Calificaciones</h3>
+		  </div>
+		  <div class="panel-body">
+		    <div class"row">
+            	<div class="col-xs-5">
+              		<div id="rateit10" class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-readonly="true"></div>
+            	</div> 
+        	</div>
+		  </div>
+		</div>
         
-        <div class="row" style="padding-left: 5%">
-            <div class="col-xs-5">
-                <img src="img/user1.png">             
-            </div>
-        </div>
-        <h4 class="pacifico"><span class="glyphicon glyphicon-star"></span> Mis Calificaciones</h4>
-        <div class"row">
-            <div class="col-xs-5">
-              <div id="rateit10" class="rateit bigstars" data-rateit-starwidth="32" data-rateit-starheight="32" data-rateit-readonly="true">
-              </div>
-            </div> 
-        </div>
-        <br>
-        <br>
-        
-        <div class="row">
-            <div class="col-xs-10">
-              
-              <button type="button" id="cerrarSesion" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-off"></span> Cerrar Sesión</button>
-              <button type="button" id="btnTrans" style="display: none" class="btn btn-warning">Finalizar Transacción</button>    
-            </div>
-        </div>             
-      </div>
+
+        <div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><span class="glyphicon glyphicon-play"></span> Estado</h3>
+		  </div>
+		  <div class="panel-body">
+		    <strong id="status" style="color: green; padding-left: 8%;">Conectado</strong>
+		  </div>
+		</div>
+	    <button type="button" id="cerrarSesion" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span> Cerrar Sesión</button>
+	    <button type="button" id="btnTrans" style="display: none" class="btn btn-warning">Finalizar Transacción</button>                
+    </div>
         
     <!-- Panel Derecho -->
     <div data-role="panel" id="right-panel" data-display="push" data-position="right" data-theme="c">
-      <!-- Boton Cerrar Panel Derecho -->
-      <button type="button" data-rel="close" class="btn btn-default btn-xs" ><span class="glyphicon glyphicon-remove"></span></button>
-      <!-- Titulo -->
-      <h2 class="pacifico"><span class="glyphicon glyphicon-list"></span>Solicitudes.</h2>
-      <div id="noSendSolicitud"><h4>¡No tienes solicitudes enviadas!</h4></div>
-      <div id="mySolicitudes">
+		<!-- Boton Cerrar Panel Derecho -->
+	    <button type="button" data-rel="close" class="btn btn-default btn-xs" ><span class="glyphicon glyphicon-remove"></span></button>
+
+	      <!-- Titulo -->
+	      <h2><span class="glyphicon glyphicon-list"></span> Solicitudes.</h2>
+	      <div id="noSendSolicitud"><h4>¡No tienes solicitudes enviadas!</h4></div>
+	      <div id="mySolicitudes">
         <div class="panel-group" id="solicitudes">
           <div id="panel0" class="panel panel-default" style="display: none">
             <div class="panel-heading">
@@ -150,13 +136,13 @@
             </div>
             <div id="collapse1" class="panel-collapse collapse in">
               <div class="panel-body">
-                <h4>Usuario <small id="miChofer0"></small></h4>
-                <h4>Origen <small id="miOrigen0"></small></h4>
-                <h4>Destino <small id="miDestino0"></small></h4>
-                <h4>Cargar <small id="miCargar0"></small></h4>
-                <h4>Descargar <small id="miDescargar0"></small></h4>
-                <h4>Precio <small id="miPrecio0"></small></h4>
-                <h4>Fecha <br><small id="miFecha0"></small></h4>
+                <h5><span class="glyphicon glyphicon-user"></span> Cliente <small id="miChofer0"></small></h5>
+                <h5><span class="glyphicon glyphicon-home"></span> Origen <small id="miOrigen0"></small></h5>
+                <h5><span class="glyphicon glyphicon-map-marker"></span> Destino <small id="miDestino0"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-in"></span> Cargar <small id="miCargar0"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-out"></span> Descargar <small id="miDescargar0"></small></h5>
+                <h5>Precio $<small id="miPrecio0"></small></h5>
+                <h5><span class="glyphicon glyphicon-list-alt"></span> Fecha<br><small id="miFecha0"></small></h5>
               </div>
             </div>
           </div>
@@ -170,13 +156,13 @@
             </div>
             <div  id="collapse2" class="panel-collapse collapse">
               <div class="panel-body">
-                <h4>Usuario <small id="miChofer1"></small></h4>
-                <h4>Origen <small id="miOrigen1"></small></h4>
-                <h4>Destino <small id="miDestino1"></small></h4>
-                <h4>Cargar <small id="miCargar1"></small></h4>
-                <h4>Descargar <small id="miDescargar1"></small></h4>
-                <h4>Precio <small id="miPrecio1"></small></h4>
-                <h4>Fecha <br><small id="miFecha1"></small></h4>
+                <h5><span class="glyphicon glyphicon-user"></span>  <small id="miChofer1"></small></h5>
+                <h5><span class="glyphicon glyphicon-home"></span>  <small id="miOrigen1"></small></h5>
+                <h5><span class="glyphicon glyphicon-map-marker"></span> <small id="miDestino1"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-in"></span>  <small id="miCargar1"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-out"></span>  <small id="miDescargar1"></small></h5>
+                <h5>$<small id="miPrecio1"></small></h5>
+                <h5><span class="glyphicon glyphicon-list-alt"></span><br><small id="miFecha1"></small></h5>
               </div>
             </div>
           </div>
@@ -190,13 +176,13 @@
             </div>
             <div id="collapse3" class="panel-collapse collapse">
               <div class="panel-body">
-                <h4>Usuario <small id="miChofer2"></small></h4>
-                <h4>Origen <small id="miOrigen2"></small></h4>
-                <h4>Destino <small id="miDestino2"></small></h4>
-                <h4>Cargar <small id="miCargar2"></small></h4>
-                <h4>Descargar <small id="miDescargar2"></small></h4>
-                <h4>Precio <small id="miPrecio2"></small></h4>
-                <h4>Fecha <br><small id="miFecha2"></small></h4>
+                <h5><span class="glyphicon glyphicon-user"></span>  <small id="miChofer2"></small></h5>
+                <h5><span class="glyphicon glyphicon-home"></span>  <small id="miOrigen2"></small></h5>
+                <h5><span class="glyphicon glyphicon-map-marker"></span> <small id="miDestino2"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-in"></span>  <small id="miCargar2"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-out"></span>  <small id="miDescargar2"></small></h5>
+                <h5>$<small id="miPrecio2"></small></h5>
+                <h5><span class="glyphicon glyphicon-list-alt"></span><br><small id="miFecha2"></small></h5>
               </div>
             </div>
           </div>
@@ -210,13 +196,13 @@
             </div>
             <div id="collapse4" class="panel-collapse collapse">
               <div class="panel-body">
-                <h4>Usuario <small id="miChofer3"></small></h4>
-                <h4>Origen <small id="miOrigen3"></small></h4>
-                <h4>Destino <small id="miDestino3"></small></h4>
-                <h4>Cargar <small id="miCargar3"></small></h4>
-                <h4>Descargar <small id="miDescargar3"></small></h4>
-                <h4>Precio <small id="miPrecio3"></small></h4>
-                <h4>Fecha <br><small id="miFecha3"></small></h4>
+                <h5><span class="glyphicon glyphicon-user"></span>  <small id="miChofer3"></small></h5>
+                <h5><span class="glyphicon glyphicon-home"></span>  <small id="miOrigen3"></small></h5>
+                <h5><span class="glyphicon glyphicon-map-marker"></span> <small id="miDestino3"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-in"></span>  <small id="miCargar3"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-out"></span>  <small id="miDescargar3"></small></h5>
+                <h5>$<small id="miPrecio3"></small></h5>
+                <h5><span class="glyphicon glyphicon-list-alt"></span> <br><small id="miFecha3"></small></h5>
               </div>
             </div>
           </div>
@@ -230,13 +216,13 @@
             </div>
             <div id="collapse5" class="panel-collapse collapse">
               <div class="panel-body">
-                <h4>Usuario <small id="miChofer4"></small></h4>
-                <h4>Origen <small id="miOrigen4"></small></h4>
-                <h4>Destino <small id="miDestino4"></small></h4>
-                <h4>Cargar <small id="miCargar4"></small></h4>
-                <h4>Descargar <small id="miDescargar4"></small></h4>
-                <h4>Precio <small id="miPrecio4"></small></h4>
-                <h4>Fecha <br><small id="miFecha4"></small></h4>
+                <h5><span class="glyphicon glyphicon-user"></span>  <small id="miChofer4"></small></h5>
+                <h5><span class="glyphicon glyphicon-home"></span>  <small id="miOrigen4"></small></h5>
+                <h5><span class="glyphicon glyphicon-map-marker"></span> <small id="miDestino4"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-in"></span>  <small id="miCargar4"></small></h5>
+                <h5><span class="glyphicon glyphicon-log-out"></span>  <small id="miDescargar4"></small></h5>
+                <h5>$<small id="miPrecio4"></small></h5>
+                <h5><span class="glyphicon glyphicon-list-alt"></span> <br><small id="miFecha4"></small></h5>
               </div>
             </div>
           </div>
@@ -245,11 +231,11 @@
     </div><!-- /panel Derecho -->
 
 
-      <div class="modal fade" id="notificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="notificacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">          
-            <h4 class="modal-title">¡Nuevo Solicitud!</h4><span style=" float:right;" class="glyphicon glyphicon-send"></span>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-send"></span>¡Nuevo Solicitud!</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -285,7 +271,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="input-group">
-                  <h4>Tiempo <small id="tiempo"></small></h4>
+                  <h4>Tiempo Aprox. de viaje<small id="tiempo"></small></h4>
                   <!-- <span class="input-group-addon">tiempo</span>
                   <input type="text" class="form-control" id="tiempo" disabled> -->
                 </div>
@@ -316,19 +302,20 @@
                 </div>
               </div>
             </div>
-            </br>
             <div class="row">
               <div class="col-lg-9">
                 <div class="input-group">
-                  <input id="precio" type="text" class="form-control" placeholder="Tu Precio">
+                  <input id="precio" type="number" class="form-control" placeholder="Tu Precio">
+                </div><br>
+                <div id="alertOferta" class="alert alert-info fade">                 
+                  <strong>¡Atención!</strong> ¡usuario solicita descuento!.
                 </div>
               </div>
             </div>
-            </br>
             <div class="row">
               <div class="col-lg-9">                
-                  <button type="button" class="btn btn-lg btn-success" id="aceptar">Enviar Oferta!</button>
-                  <button type="button" class="btn btn-default btn-lg" id="rechazar">Rechazar</button>                
+                  <button type="button" class="btn btn-lg btn-success" id="aceptar">¡Enviar Oferta!</button>
+                  <button class="btn btn-primary btn-lg"  id="opcionSolicitud" data-toggle="modal" data-target="#modalRechazo">Opciones</button>
               </div>
             </div>
           </div>
@@ -342,18 +329,50 @@
               </div>
             </div>
             <div id="myAlert" class="alert alert-danger" style="text-align: left">
-              <div id="alerText"><strong>Atencion!</strong> Solicitud se cierra en <strong id="potje"></strong>%.</div>
+              <div id="alerText"><strong>¡Atención!</strong> Solicitud se cierra en <strong id="potje"></strong>%.</div>
             </div> 
           </div>            
         </div><!-- /.modal-content data-dismiss="modal" -->
       </div><!-- /.modal-dialog onclick="cerrarSolicitud(1000)"-->
     </div><!-- /.modal -->
+
+     <!-- Modal -->
+    <div class="modal fade" id="modalRechazo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">¿Porque rechaza la solicitud?</h4>
+          </div>
+          <div class="modal-body">
+            <fieldset data-role="controlgroup" data-mini="true">
+              <input type="radio" name="radio-mini" id="radio-mini-1" value="1" checked="checked" />
+              <label for="radio-mini-1">No lo puedo realizar</label>
+             
+              <input type="radio" name="radio-mini" id="radio-mini-2" value="2" />
+              <label for="radio-mini-2">Fotos mal tomadas</label>
+             
+              <input type="radio" name="radio-mini" id="radio-mini-3" value="3" />
+              <label for="radio-mini-3">Comentario no definido</label>
+
+              <input type="radio" name="radio-mini" id="radio-mini-4" value="4" />
+              <label for="radio-mini-4">Direccion desconocida</label>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Volver</button>
+            <button type="button" class="btn btn-default btn-lg" id="rechazar">Aceptar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
   <!-- Modal -->
     <div class="modal fade" id="modalFin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="myTextFin">Haz finalizado!</h4>
+            <h4 class="modal-title" id="myTextFin">¡Haz finalizado!</h4>
           </div>
           <div class="modal-body">
             <div class="well">
@@ -367,8 +386,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button id="btnFin" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <button id="btnSend" type="button" class="btn btn-primary">Enviar Calificación</button>
+            <button type="button" id="btnFin" class="btn btn-default" data-dismiss="modal">Volver</button> 
+            <button type="button" id="btnSend" class="btn btn-primary btn-lg">Calificar</button>        
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -378,31 +397,32 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><span class="glyphicon glyphicon-off" ></span> Iniciar Sesión</h4>
+                    <h4 class="modal-title"> <span class="glyphicon glyphicon-off"></span> Iniciar Sesión</h4>
                 </div>
                 <div class="modal-body">
                     <p class="text-danger" id="errorLogin"></p>
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" autocomplete="on" data-ajax="false">
                         <div class="form-group">
-                            <label for="correoChofer" class="col-lg-3 control-label"><span class="glyphicon glyphicon-envelope" ></span> Correo (Usuario ID)</label>
-                            <div class="col-lg-8">
-                                <input type="text" class="form-control" id="correoChofer" placeholder="mi@correo.com">
+                            <label for="correoChofer" class="col-lg-2 control-label"><span class="glyphicon glyphicon-envelope"></span> Correo</label>
+                            <div class="col-lg-10">
+                                <input type="email" class="form-control" id="correoChofer" placeholder="Correo" autocomplete="on" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="passwordChofer" class="col-lg-3 control-label"><span class="glyphicon glyphicon-asterisk" ></span> Password</label>
-                            <div class="col-lg-8">
-                                <input type="password" class="form-control" id="passwordChofer" placeholder="********">
+                            <label for="passwordChofer" class="col-lg-2 control-label"><span class="glyphicon glyphicon-asterisk"></span> Password</label>
+                            <div class="col-lg-10">
+                                <input type="password" class="form-control" id="passwordChofer" placeholder="Password" autocomplete="on" required>
                             </div>
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnIni" class="btn btn-primary" onclick='iniciarSesion()'>Ingresar</button>
                 </div>
+                </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    </div>
-  </body>
+	
+</body>
 </html>

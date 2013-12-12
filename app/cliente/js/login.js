@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 });
 
-var socket = io.connect('http://localhost:8000',{
+var socket = io.connect('http://buscaflete.cl:8000',{
       'auto connect': false
     });
 

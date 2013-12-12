@@ -1,0 +1,47 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+.camion {
+
+	background-image:url('../../img/camion.jpg');
+  background-color:#cccccc;
+  background-repeat:no-repeat;
+  background-position:center right;
+  background-size:100%;
+}
+
+.blanco {
+	color: white;
+
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src: url('../../fonts/Pacifico.ttf');
+  }
+
+.pacifico {
+
+     font-family: 'Pacifico', cursive;
+     text-shadow:1px 1px 1px #000000;
+     color: #FFF;
+  }
+  
+/* New styles below */
+
+		label.valid {
+		  width: 24px;
+		  height: 24px;
+		  background: url(../assets/img/valid.png) center center no-repeat;
+		  display: inline-block;
+		  text-indent: -9999px;
+		}
+		label.error {
+			font-weight: bold;
+			color: red;
+			padding: 2px 8px;
+			margin-top: 2px;
+		}

@@ -4,7 +4,15 @@
 			// incializamos inforWindow...muestra informacion en un content
 			var infoWindow = new google.maps.InfoWindow();
 			// variables para datos de domicilio usuario
-			var direccion = document.querySelector('#start');//direccion de casa
+			var direccionMapa = document.querySelector('#start');//direccion de casa
+			var direccionMapa = document.createElement('input');
+			direccionMapa.id='start';
+			direccionMapa.type='text';
+			direccionMapa.disabled = 'true';
+			direccionMapa.style.textAlign = 'center';
+			direccionMapa.title = 'Tú posición';
+			direccionMapa.className = 'form-control input-md';
+			direccionMapa.index = 1 ;
 			// Variable para guardar longitud y latitud
 			var myLatlng;
 			// declaracion de objeto mapa 
@@ -81,7 +89,8 @@
 			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 			markerGeo = new google.maps.Marker({map: map, icon: icons.chof, title: "Tu posición", animation: google.maps.Animation.DROP});
 			//PONEMOS CONTROLES EN EL MAPA!
-			map.controls[google.maps.ControlPosition.RIGHT_TOP].push(botonGps);
+			map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(botonGps);
+			map.controls[google.maps.ControlPosition.TOP_CENTER].push(direccionMapa);
 			//map.controls[google.maps.ControlPosition.CENTER].push(logo);
 			/////HTML5 GEOCALIZAR AL USUARIO/////
 			geocalizando();
@@ -122,9 +131,9 @@
 			///Excepcion de GEOLOCATION en caso de ERROR.
 			function handleNoGeolocation(errorFlag) {
 			if (errorFlag) {
-			var content = 'Error: The Geolocation service failed.';
+			var content = 'Error: El servicio de geolocalización fallo, verifica el estado de tu GPS y actualiza la aplicación';
 			} else {
-			var content = 'Error: Your browser doesn\'t support geolocation.';
+			var content = 'Error: Tu navegador no da soporte a la geolocalización.';
 			}
 			var options = {
 			map: map,
@@ -152,7 +161,7 @@
 				if (results[0]) {				
 				$('#start').val(results[0].address_components[1].long_name+" "+results[0].address_components[0].short_name);
 				//direccion.setAttribute("value", results[0].address_components[1].long_name);//Direccion de la casa results[1].address_components[0].long_name (muestra con mas detalle)
-				}else {alert('No results found');}
+				}else {alert('Ningún resultado encontrado');}
 			}else {alert('Geocoder failed due to: ' + status);}
 			});
 			}//////FIN FUNCION REVERSE GEOLOCATION!
@@ -187,7 +196,7 @@
 		        makeMarker(response.routes[0].legs[0].start_location, icons.start, "Tu punto de partida!", "Datos de partida",response.routes[0].legs[0].start_address);
 				makeMarkerUser(response.routes[0].legs[0].end_location, icons.user, "Tu cliente esta aqui!. Haz click para ver información",usuario, solicitud);
 				makeMarker(response.routes[0].legs[1].end_location, icons.end, "Aqui debes llegar!","Destino de descarga",response.routes[0].legs[1].end_address);
-		    } else {alert("No existen rutas entre los puntos!!");}
+		    } else {alert("¡No existen rutas entre los puntos!");}
 			});
 		}
 		//Funcion para crear Markers
@@ -207,7 +216,7 @@
 
 		}
 		function makeMarkerUser(position, icon, title, usuario, solicitud){
-			var contenido = '<b>Datos del usuario</b><br><span> Nombre: '+usuario.nombre+'</span><br><span> Correo: '+usuario.correo+'</span><br><span> Celular: '+usuario.celular+'</span><br><span><b>Datos de solicitud</b></span><br><span> Origen: '+solicitud.origen+'</span><br><span> Destino: '+solicitud.destino+'</span><br><span> Cargar: '+solicitud.cargar+' Descargar: '+solicitud.descargar+'<span><br><span>Comentario: '+solicitud.comentario+'</span><br><span>Distancia total: '+solicitud.kms+" y "+solicitud.tiempo+'</span><br><b>Precio: '+solicitud.precio+'</b>';
+			var contenido = '<b>Datos del cliente</b><br><span> Nombre: '+usuario.nombre+'</span><br><span> Correo: '+usuario.correo+'</span><br><span> Celular: '+usuario.celular+'</span><br><span><b>Datos de solicitud</b></span><br><span> Origen: '+solicitud.origen+'</span><br><span> Destino: '+solicitud.destino+'</span><br><span> Cargar: '+solicitud.cargar+' Descargar: '+solicitud.descargar+'<span><br><span>Comentario: '+solicitud.comentario+'</span><br><span>Distancia total: '+solicitud.kms+" y "+solicitud.tiempo+'</span><br><b>Precio: '+solicitud.precio+'</b>';
 			var marker = new google.maps.Marker({
 				position: position,
 				map: map,

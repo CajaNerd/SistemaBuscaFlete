@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_rsChofer" value="name:idChofer;datatype:int,name:nombre;datatype:string,name:password;datatype:string,name:correo;datatype:string,name:fotoCedula;datatype:string,name:fotoPadron;datatype:string,name:idCamion;datatype:string,name:capacidadCarga;datatype:int,name:estado;datatype:int,name:fecha_creacion;datatype:timestamp,name:montoFacturacion;datatype:int,name:telefono;datatype:int,name:lon;datatype:string,name:lat;datatype:string,name:rutChofer;datatype:string" />
+</info>
